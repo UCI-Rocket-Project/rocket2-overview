@@ -45,21 +45,25 @@ All ground communication will be over TCP/IP Ethernet and use the standardized J
 ### ECU Data
 | Key | Data Type | Units | Description
 | --- | --- | --- | --- |
-| ecuGyroscopeX | `float` | $rad/s$ | Angular velocity along x-axis |
-| ecuGyroscopeY | `float` | $rad/s$ | Angular velocity along y-axis |
-| ecuGyroscopeZ | `float` | $rad/s$ | Angular velocity along z-axis |
-| ecuAccelerometerX | `float` | $m/s^2$ |  Acceleration along x-axis |
-| ecuAccelerometerY | `float` | $m/s^2$ |  Acceleration along y-axis |
-| ecuAccelerometerZ | `float` | $m/s^2$ |  Acceleration along z-axis |
-| ecuMagnetometerX | `float` | $\mu T$ |  Magnetic field along x-axis |
-| ecuMagnetometerY | `float` | $\mu T$ |  Magnetic field along y-axis |
-| ecuMagnetometerZ | `float` | $\mu T$ |  Magnetic field along z-axis |
-| ecuAltimeterPressure | `float` | $hPa$ | Environment pressure |
-| ecuAltimeterTemperature | `float` | $\degree C$ | Environment temperature |
-| ecuAltimeterAltitude | `float` | $m$ | Mean sea level altitude |
-| ecuGnssLongitude | `float` | $\degree$ | GNSS longitude |
-| ecuGnssLatitude | `float` | $\degree$ | GNSS latitude |
-| ecuGnssAltitude | `float` | $m$ | GNSS altitude |
+| gyroscopeX | `float` | $rad/s$ | Angular velocity along x-axis, launch vehicle frame |
+| gyroscopeY | `float` | $rad/s$ | Angular velocity along y-axis, launch vehicle frame |
+| gyroscopeZ | `float` | $rad/s$ | Angular velocity along z-axis, launch vehicle frame |
+| accelerometerX | `float` | $m/s^2$ |  Acceleration along x-axis, launch vehicle frame |
+| accelerometerY | `float` | $m/s^2$ |  Acceleration along y-axis, launch vehicle frame |
+| accelerometerZ | `float` | $m/s^2$ |  Acceleration along z-axis, launch vehicle frame |
+| magnetometerX | `float` | $\mu T$ |  Magnetic field along x-axis, launch vehicle frame |
+| magnetometerY | `float` | $\mu T$ |  Magnetic field along y-axis, launch vehicle frame |
+| magnetometerZ | `float` | $\mu T$ |  Magnetic field along z-axis, launch vehicle frame |
+| altimeterTemperature | `float` | $\degree C$ | Environment temperature |
+| altimeterAltitude | `float` | $m$ | Mean sea level altitude |
+| gnssEcefPositionX | `float` | $m$ | GNSS Earth-Centered Earth-Fixed x position |
+| gnssEcefPositionY | `float` | $m$ | GNSS Earth-Centered Earth-Fixed y position |
+| gnssEcefPositionZ | `float` | $m$ | GNSS Earth-Centered Earth-Fixed z position |
+| gnssEcefPositionAccuracy | `float` | $m$ | GNSS estimated position accuracy |
+| gnssEcefVelocityX | `float` | $m/s$ | GNSS Earth-Centered Earth-Fixed x velocity |
+| gnssEcefVelocityY | `float` | $m/s$ | GNSS Earth-Centered Earth-Fixed y velocity |
+| gnssEcefVelocityZ | `float` | $m/s$ | GNSS Earth-Centered Earth-Fixed z velocity |
+| gnssEcefVelocityAccuracy | `float` | $m/s$ | GNSS estimated velocity accuracy |
 
 ### GSE Data
 TBD.
