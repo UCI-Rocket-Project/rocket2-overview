@@ -1,7 +1,7 @@
 # Rocket 2 Avionics System
 
 ## Overview
-![SystemArchitecture](/system_architecture.svg)
+![SystemArchitecture](/media/system_architecture.svg)
 
 
 ## Subsystems
@@ -66,6 +66,45 @@ TBD.
 
 ### Tracking Data
 TBD.
+
+
+## Standardized Connector
+![Pin](/media/gx16_pinout.png)
+
+### 24V Power
+GX20 Connector \
+1: +24V \
+2: GND
+
+### Battery Power
+XT60 Connector \
+1 (Square): +24V \
+2 (Round): GND
+
+### Solenoid
+GX16 Connector \
+1: +24V \
+2: GND / Control
+
+### Pressure Transducer (PT)
+GX16 Connector \
+1: +24V \
+2: Signal \
+3: GND
+
+### Thermocouple (TC)
+ANSI Miniature Thermocouple Connector (K Type, Yellow) \
++: Nickel-Chromium \
+-: Nickel-Alumel
+
+### CAN Bus
+GX12 Connector \
+1: +24V \
+2: +3.3V \
+3: CAN Low \
+4: CAN High \
+5: Reserved \
+6: GND
 
 
 ## Hardware Contributing Guidelines
