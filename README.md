@@ -111,6 +111,62 @@ GX12 Connector \
 6: GND
 
 
+## Standardized Memory Packets
+All data stored into onboard memory will use the standardized packet. All packets are 64 bytes aligned and packed little-endian.
+
+### Telemetry Data
+```c
+struct TelemetryData {
+    uint8_t type = 0x00;
+    uint32_t timestamp = 0xFFFFFFFF;             // ms since startup
+    uint8_t state = 0x00;                        // state for AFS, unused on ECU
+    int16_t imuGyroscopeX = 0xFFFF;              // 0.061 deg/s per LSB
+    int16_t imuGyroscopeY = 0xFFFF;              // 0.061 deg/s per LSB
+    int16_t imuGyroscopeZ = 0xFFFF;              // 0.061 deg/s per LSB
+    int16_t imuAccelerometerX = 0xFFFF;          // 0.00073g per LSB
+    int16_t imuAccelerometerY = 0xFFFF;          // 0.00073g per LSB
+    int16_t imuAccelerometerZ = 0xFFFF;          // 0.00073g per LSB
+    int16_t imuMagnetometerX = 0xFFFF;           // 0.063 uT per LSB
+    int16_t imuMagnetometerY = 0xFFFF;           // 0.063 uT per LSB
+    int16_t imuMagnetometerZ = 0xFFFF;           // 0.063 uT per LSB
+    int16_t altimeterTemperature = 0xFFFF;       // 10^-2 C
+    int32_t altimeterAltitude = 0xFFFFFFFF;      // cm
+    int32_t gnssEcefPositionX = 0xFFFFFFFF;      // cm
+    int32_t gnssEcefPositionY = 0xFFFFFFFF;      // cm
+    int32_t gnssEcefPositionZ = 0xFFFFFFFF;      // cm
+    uint32_t gnssPositionAccuracy = 0xFFFFFFFF;  // cm
+    int32_t gnssEcefVelocityX = 0xFFFFFFFF;      // cm/s
+    int32_t gnssEcefVelocityY = 0xFFFFFFFF;      // cm/s
+    int32_t gnssEcefVelocityZ = 0xFFFFFFFF;      // cm/s
+    uint32_t gnssVelocityAccuracy = 0xFFFFFFFF;  // cm/s
+    uint16_t crc = 0x0000;
+};
+```
+```c
+struct AfsState {
+    bool armPinState : 1;       // 0: unarmed, 1: armed
+    bool drogueContinuity : 1;  // 0: no continuity, 1: continuity
+    bool mainContinuity : 1;    // 0: no continuity, 1: continuity
+    uint16_t : 1;               // reserved
+    /**
+     * 0x0: standby
+     * 0x1: armed
+     * 0x2: boost
+     * 0x3: coast
+     * 0x4: apogee
+     * 0x5: drogue fired
+     * 0x6: drogue opened
+     * 0x7 drogue failure
+     * 0x8: main fired
+     * 0x9: main opened
+     * 0xA: main failure
+     * 0xB: land
+     */
+    uint8_t state : 4;
+};
+```
+
+
 ## Hardware Contributing Guidelines
 1. Use [KiCAD 7](https://www.kicad.org/).
 2. Use provided [.gitignore](/hardware/.gitignore). Do not include fabrication files (Gerber, BOM, etc).
