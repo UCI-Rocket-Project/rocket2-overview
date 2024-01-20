@@ -177,8 +177,9 @@ struct AfsState {
 
 ## Software Contributing Guidelines
 1. Use [pre-commit](https://pre-commit.com/). Copy provided [.pre-commit-config.yaml](/software/.pre-commit-config.yaml) to project repository root and install.
-    - Python files are formatted with [Black](https://github.com/psf/black). No additional actions necessary.
-    - C/C++ and Javascript files are formatted with [clang-format](https://clang.llvm.org/docs/ClangFormat.html). Copy provided [.clang-format](/software/.clang-format) to project repository root.
+    - **Python** files are formatted with [Black](https://github.com/psf/black). Uncomment relevant section in `.pre-commit-config.yaml`.
+    - **C/C++** files are formatted with [clang-format](https://clang.llvm.org/docs/ClangFormat.html). Copy provided [.clang-format](/software/.clang-format) to project repository root and uncomment relevant section in `.pre-commit-config.yaml`.
+    - **Javascript, Typescript, and web-related** files are formatted with [Prettier](https://prettier.io/). Copy provided [.prettierrc](/software/.prettierrc) to repository root and uncomment relevant section in `.pre-commit-config.yaml`.
 2. Each software module (each repository) shall have a singular command or script that enables the whole module.
 3. Naming conventions are as follows:
     - Files: `snake_case.c`
