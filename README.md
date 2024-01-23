@@ -76,7 +76,7 @@ TBD.
 ![Pin](/media/gx16_pinout.png)
 
 ### 24V Power
-GX20 Connector \
+GX16 Connector \
 1: +24V \
 2: GND
 
@@ -88,10 +88,11 @@ XT60 Connector \
 ### Solenoid
 GX16 Connector \
 1: +24V \
-2: GND / Control
+2: Control \
+3: GND
 
 ### Pressure Transducer (PT)
-GX16 Connector \
+GX12 Connector \
 1: +24V \
 2: Signal \
 3: GND
@@ -104,11 +105,9 @@ ANSI Miniature Thermocouple Connector (K Type, Yellow) \
 ### CAN Bus
 GX12 Connector \
 1: +24V \
-2: +3.3V \
+2: CAN High \
 3: CAN Low \
-4: CAN High \
-5: Reserved \
-6: GND
+4: GND
 
 
 ## Standardized Memory Packets
