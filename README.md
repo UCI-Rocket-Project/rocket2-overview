@@ -59,6 +59,8 @@ struct ecuCommand {
 ```c
 struct ecuData {
     uint32_t timestamp;
+    float supplyVoltage = std::nanf("");
+    float batteryVoltage = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
     float solenoidCurrentPv1 = std::nanf("");
     float solenoidCurrentPv2 = std::nanf("");
@@ -91,6 +93,8 @@ struct ecuData {
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| supplyVoltage | `float` | $V$ | Power supply voltage |
+| batteryVoltage | `float` | $V$ | Battery supply voltage |
 | solenoidCurrentGn2Vent | `float` | $A$ | COPV vent solenoid current feedback |
 | solenoidCurrentPv1 | `float` | $A$ | DLPR Dome fill solenoid current feedback |
 | solenoidCurrentPv2 | `float` | $A$ | DLPR Dome vent solenoid current feedback |
@@ -157,6 +161,7 @@ struct gseData {
     uint64_t : 6;
     bool igniterArmed : 1;
     bool igniterContinuity : 1;
+    float supplyVoltage = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
     float solenoidCurrentMvasFill = std::nanf("");
@@ -176,6 +181,7 @@ struct gseData {
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
 | igniterContinuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| supplyVoltage | `float` | $V$ | Power supply voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
 | solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
 | solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
@@ -324,6 +330,8 @@ struct ecuTelemetryData {
 struct ecuFluidSystemData {
   uint8_t type = 0x11;
   uint32_t timestamp = 0xFFFFFFFF;
+  uint16_t supplyVoltage = 0xFFFF;
+  uint16_t batteryVoltage = 0xFFFF;
   uint64_t : 4;
   bool solenoidStateGn2Vent : 1;
   bool solenoidStatePv1 : 1;
@@ -341,13 +349,15 @@ struct ecuFluidSystemData {
   uint64_t : 64;
   uint64_t : 64;
   uint64_t : 64;
-  uint64_t : 64;
+  uint64_t : 32;
   uint16_t crc = 0x0000;
 };
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| supplyVoltage | `unsigned short` | $mV$ | Power supply voltage |
+| batteryVoltage | `unsigned short` | $mV$ | Battery supply voltage |
 | solenoidStateGn2Vent | `bool` | | COPV vent solenoid state |
 | solenoidStatePv1 | `bool` | | DLPR Dome fill solenoid state |
 | solenoidStatePv2 | `bool` | | DLPR Dome vent solenoid state |
