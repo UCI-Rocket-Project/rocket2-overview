@@ -123,7 +123,8 @@ struct ecuData {
 ### GSE Command Packet
 ```c
 struct gseCommand {
-    uint64_t : 7
+    uint64_t : 6;
+    bool igniterFire : 1;
     bool solenoidStateGn2Fill : 1;
     bool solenoidStateGn2Vent : 1;
     bool solenoidStateMvasFill : 1;
@@ -137,6 +138,7 @@ struct gseCommand {
 ```
 | Key | Data Type | Description |
 | --- | --- | --- |
+| igniterFire | `bool` | Fire igniter |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
 | solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
@@ -146,12 +148,15 @@ struct gseCommand {
 | solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally closed |
 | solenoidStateLngFill | `bool` | Liquid methane fill, normally closed |
 | solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally closed |
-> All fields shall be filled with valid command. A value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
+> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
 
 ### GSE Data Packet
 ```c
 struct gseData {
     uint32_t timestamp;
+    uint64_t : 6;
+    bool igniterArmed : 1;
+    bool igniterContinuity : 1;
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
     float solenoidCurrentMvasFill = std::nanf("");
@@ -169,6 +174,8 @@ struct gseData {
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
+| igniterContinuity | `bool` | | Igniter continuity, `1` for continuity detected |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
 | solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
 | solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
@@ -178,7 +185,7 @@ struct gseData {
 | solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
 | solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
 | solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
-> `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
+> `timestamp`, `igniterArmed`, and `igniterContinuity` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 
 ## Standardized Memory Format
