@@ -69,11 +69,10 @@ All ground communication will be over TCP/IP Ethernet and use the standardized p
 ### ECU Command Packet
 ```c
 struct ecuCommand {
-    uint64_t : 4;
-    bool solenoidStateGn2Vent : 1;
-    bool solenoidStatePv1 : 1;
-    bool solenoidStatePv2 : 1;
-    bool solenoidStateVent : 1;
+    bool solenoidStateGn2Vent;
+    bool solenoidStatePv1;
+    bool solenoidStatePv2;
+    bool solenoidStateVent;
 };
 ```
 | Key | Data Type | Description |
@@ -156,17 +155,16 @@ struct ecuData {
 ### GSE Command Packet
 ```c
 struct gseCommand {
-    uint64_t : 6;
-    bool igniterFire : 1;
-    bool solenoidStateGn2Fill : 1;
-    bool solenoidStateGn2Vent : 1;
-    bool solenoidStateMvasFill : 1;
-    bool solenoidStateMvasVent : 1;
-    bool solenoidStateMvas : 1;
-    bool solenoidStateLoxFill : 1;
-    bool solenoidStateLoxVent : 1;
-    bool solenoidStateLngFill : 1;
-    bool solenoidStateLngVent : 1;
+    bool igniterFire;
+    bool solenoidStateGn2Fill;
+    bool solenoidStateGn2Vent;
+    bool solenoidStateMvasFill;
+    bool solenoidStateMvasVent;
+    bool solenoidStateMvas;
+    bool solenoidStateLoxFill;
+    bool solenoidStateLoxVent;
+    bool solenoidStateLngFill;
+    bool solenoidStateLngVent;
 };
 ```
 | Key | Data Type | Description |
@@ -187,9 +185,8 @@ struct gseCommand {
 ```c
 struct gseData {
     uint32_t timestamp;
-    uint64_t : 6;
-    bool igniterArmed : 1;
-    bool igniterContinuity : 1;
+    bool igniterArmed;
+    bool igniterContinuity;
     float supplyVoltage = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
