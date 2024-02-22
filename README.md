@@ -186,8 +186,10 @@ struct gseCommand {
 struct gseData {
     uint32_t timestamp;
     bool igniterArmed;
-    bool igniterContinuity;
-    float supplyVoltage = std::nanf("");
+    bool igniter1Continuity;
+    bool igniter2Continuity;
+    float supplyVoltage1 = std::nanf("");
+    float supplyVoltage2 = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
     float solenoidCurrentMvasFill = std::nanf("");
@@ -206,8 +208,10 @@ struct gseData {
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
-| igniterContinuity | `bool` | | Igniter continuity, `1` for continuity detected |
-| supplyVoltage | `float` | $V$ | Power supply voltage |
+| igniter1Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| igniter2Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
+| supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
 | solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
 | solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
