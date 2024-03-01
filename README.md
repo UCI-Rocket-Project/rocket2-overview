@@ -69,7 +69,7 @@ All ground communication will be over TCP/IP Ethernet and use the standardized p
 ### ECU Command Packet
 ```c
 struct ecuCommand {
-    bool solenoidStateGn2Vent;
+    bool solenoidStateCopvVent;
     bool solenoidStatePv1;
     bool solenoidStatePv2;
     bool solenoidStateVent;
@@ -77,7 +77,7 @@ struct ecuCommand {
 ```
 | Key | Data Type | Description |
 | --- | --- | --- |
-| solenoidStateGn2Vent | `bool` | COPV vent, normally closed |
+| solenoidStateCopvVent | `bool` | COPV vent, normally closed |
 | solenoidStatePv1 | `bool` | DLPR Dome fill, normally closed |
 | solenoidStatePv2 | `bool` | DLPR Dome vent, normally open |
 | solenoidStateVent | `bool` | LOX & LNG vent, normally open |
@@ -89,12 +89,12 @@ struct ecuData {
     uint32_t timestamp;
     float supplyVoltage = std::nanf("");
     float batteryVoltage = std::nanf("");
-    float solenoidCurrentGn2Vent = std::nanf("");
+    float solenoidCurrentCopvVent = std::nanf("");
     float solenoidCurrentPv1 = std::nanf("");
     float solenoidCurrentPv2 = std::nanf("");
     float solenoidCurrentVent = std::nanf("");
-    float temperatureGn2 = std::nanf("");
-    float pressureGn2 = std::nanf("");
+    float temperatureCopv = std::nanf("");
+    float pressureCopv = std::nanf("");
     float pressureLox = std::nanf("");
     float pressureLng = std::nanf("");
     float angularVelocityX = std::nanf("");
@@ -123,12 +123,12 @@ struct ecuData {
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | supplyVoltage | `float` | $V$ | Power supply voltage |
 | batteryVoltage | `float` | $V$ | Battery supply voltage |
-| solenoidCurrentGn2Vent | `float` | $A$ | COPV vent solenoid current feedback |
+| solenoidCurrentCopvVent | `float` | $A$ | COPV vent solenoid current feedback |
 | solenoidCurrentPv1 | `float` | $A$ | DLPR Dome fill solenoid current feedback |
 | solenoidCurrentPv2 | `float` | $A$ | DLPR Dome vent solenoid current feedback |
 | solenoidCurrentVent | `float` | $A$ | LOX & LNG vent solenoid current feedback |
-| temperatureGn2 | `float` | $\degree C$ | COPV temperature |
-| pressureGn2 | `float` | $psi$ | COPV pressure, max range 5000 psi |
+| temperatureCopv | `float` | $\degree C$ | COPV temperature |
+| pressureCopv | `float` | $psi$ | COPV pressure, max range 5000 psi |
 | pressureLox | `float` | $psi$ | Liquid oxygen tank pressure, max range 1000 psi |
 | pressureLng | `float` | $psi$ | Liquid methane tank pressure, max range 1000 psi |
 | angularVelocityX | `float` | $rad/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
@@ -363,16 +363,16 @@ struct ecuFluidSystemData {
   uint16_t supplyVoltage = 0xFFFF;
   uint16_t batteryVoltage = 0xFFFF;
   uint64_t : 4;
-  bool solenoidStateGn2Vent : 1;
+  bool solenoidStateCopvVent : 1;
   bool solenoidStatePv1 : 1;
   bool solenoidStatePv2 : 1;
   bool solenoidStateVent : 1;
-  uint16_t solenoidCurrentGn2Vent = 0xFFFF;
+  uint16_t solenoidCurrentCopvVent = 0xFFFF;
   uint16_t solenoidCurrentPv1 = 0xFFFF;
   uint16_t solenoidCurrentPv2 = 0xFFFF;
   uint16_t solenoidCurrentVent = 0xFFFF;
-  int16_t temperatureGn2 = 0xFFFF;
-  uint16_t pressureGn2 = 0xFFFF;
+  int16_t temperatureCopv = 0xFFFF;
+  uint16_t pressureCopv = 0xFFFF;
   uint16_t pressureLox = 0xFFFF;
   uint16_t pressureLng = 0xFFFF;
   uint64_t : 64;
@@ -388,16 +388,16 @@ struct ecuFluidSystemData {
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | supplyVoltage | `unsigned short` | $mV$ | Power supply voltage |
 | batteryVoltage | `unsigned short` | $mV$ | Battery supply voltage |
-| solenoidStateGn2Vent | `bool` | | COPV vent solenoid state |
+| solenoidStateCopvVent | `bool` | | COPV vent solenoid state |
 | solenoidStatePv1 | `bool` | | DLPR Dome fill solenoid state |
 | solenoidStatePv2 | `bool` | | DLPR Dome vent solenoid state |
 | solenoidStateVent | `bool` | | LOX & LNG vent solenoid state |
-| solenoidCurrentGn2Vent | `unsigned short` | $mA$ | COPV vent solenoid current feedback |
+| solenoidCurrentCopvVent | `unsigned short` | $mA$ | COPV vent solenoid current feedback |
 | solenoidCurrentPv1 | `unsigned short` | $mA$ | DLPR Dome fill solenoid current feedback |
 | solenoidCurrentPv2 | `unsigned short` | $mA$ | DLPR Dome vent solenoid current feedback |
 | solenoidCurrentVent | `unsigned short` | $A$ | LOX & LNG vent solenoid current feedback |
-| temperatureGn2 | `signed short` | $10^{-2}\ \degree C$ | COPV temperature |
-| pressureGn2 | `unsigned short` | $10^{-1}\ psi$ | COPV pressure, max range 5000 psi |
+| temperatureCopv | `signed short` | $10^{-2}\ \degree C$ | COPV temperature |
+| pressureCopv | `unsigned short` | $10^{-1}\ psi$ | COPV pressure, max range 5000 psi |
 | pressureLox | `unsigned short` | $10^{-1}\ psi$ | Liquid oxygen tank pressure, max range 1000 psi |
 | pressureLng | `unsigned short` | $10^{-1}\ psi$ | Liquid methane tank pressure, max range 1000 psi |
 > `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
