@@ -87,6 +87,8 @@ struct ecuCommand {
 ```c
 struct ecuData {
     uint32_t timestamp;
+    float packerRssi;
+    float packetLoss;
     float supplyVoltage = std::nanf("");
     float batteryVoltage = std::nanf("");
     float solenoidCurrentCopvVent = std::nanf("");
@@ -121,6 +123,8 @@ struct ecuData {
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| packetRssi | `float` | $dBm$ | Radio packet receive signal strength indicator |
+| packetLoss | `float` | | Radio packet loss rate ratio |
 | supplyVoltage | `float` | $V$ | Power supply voltage |
 | batteryVoltage | `float` | $V$ | Battery supply voltage |
 | solenoidCurrentCopvVent | `float` | $A$ | COPV vent solenoid current feedback |
