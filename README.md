@@ -159,7 +159,8 @@ struct ecuData {
 ### GSE Command Packet
 ```c
 struct gseCommand {
-    bool igniterFire;
+    bool igniter1Fire;
+    bool igniter2Fire;
     bool solenoidStateGn2Fill;
     bool solenoidStateGn2Vent;
     bool solenoidStateMvasFill;
@@ -173,7 +174,8 @@ struct gseCommand {
 ```
 | Key | Data Type | Description |
 | --- | --- | --- |
-| igniterFire | `bool` | Fire igniter |
+| igniter1Fire | `bool` | Fire igniter 1 |
+| igniter2Fire | `bool` | Fire igniter 2 |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
 | solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
