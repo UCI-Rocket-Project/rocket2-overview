@@ -87,7 +87,7 @@ struct ecuCommand {
 ```c
 struct ecuData {
     uint32_t timestamp;
-    float packerRssi;
+    float packetRssi;
     float packetLoss;
     float supplyVoltage = std::nanf("");
     float batteryVoltage = std::nanf("");
