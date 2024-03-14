@@ -99,6 +99,8 @@ struct ecuData {
     float pressureCopv = std::nanf("");
     float pressureLox = std::nanf("");
     float pressureLng = std::nanf("");
+    float pressureInjectorLox = std::nanf("");
+    float pressureInjectorLng = std::nanf("");
     float angularVelocityX = std::nanf("");
     float angularVelocityY = std::nanf("");
     float angularVelocityZ = std::nanf("");
@@ -135,6 +137,8 @@ struct ecuData {
 | pressureCopv | `float` | $psi$ | COPV pressure, max range 5000 psi |
 | pressureLox | `float` | $psi$ | Liquid oxygen tank pressure, max range 1000 psi |
 | pressureLng | `float` | $psi$ | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | `float` | $psi$ | Injector liquid oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | `float` | $psi$ | Injector methane pressure, max range 1000 psi |
 | angularVelocityX | `float` | $rad/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
 | angularVelocityY | `float` | $rad/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
 | angularVelocityZ | `float` | $rad/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
@@ -381,11 +385,12 @@ struct ecuFluidSystemData {
   uint16_t pressureCopv = 0xFFFF;
   uint16_t pressureLox = 0xFFFF;
   uint16_t pressureLng = 0xFFFF;
+  uint16_t pressureInjectorLox = 0xFFFF;
+  uint16_t pressureInjectorLng = 0xFFFF;
   uint64_t : 64;
   uint64_t : 64;
   uint64_t : 64;
   uint64_t : 64;
-  uint64_t : 32;
   uint16_t crc = 0x0000;
 };
 ```
@@ -406,6 +411,8 @@ struct ecuFluidSystemData {
 | pressureCopv | `unsigned short` | $10^{-1}\ psi$ | COPV pressure, max range 5000 psi |
 | pressureLox | `unsigned short` | $10^{-1}\ psi$ | Liquid oxygen tank pressure, max range 1000 psi |
 | pressureLng | `unsigned short` | $10^{-1}\ psi$ | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | `unsigned short` | $10^{-1}\ psi$ | Injector oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | `unsigned short` | $10^{-1}\ psi$ | Injector methane pressure, max range 1000 psi |
 > `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
 
 
