@@ -152,7 +152,7 @@ struct gseData {
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| timestamp | `unsigned long` | $ms$ | Milliseconds since Unix Epoch |
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
 | igniter0Continuity | `bool` | | Igniter 0 continuity, `1` for continuity detected |
 | igniter1Continuity | `bool` | | Igniter 1 continuity, `1` for continuity detected |
@@ -247,7 +247,7 @@ struct ecuData {
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| timestamp | `unsigned long` | $ms$ | Milliseconds since Unix Epoch |
 | packetRssi | `float` | $dBm$ | Radio packet receive signal strength indicator |
 | packetLoss | `float` | | Radio packet loss rate ratio |
 | solenoidInternalStateCopvVent | `bool` | | COPV vent solenoid state feedback |
@@ -321,7 +321,7 @@ struct afsTelemetryData {
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| timestamp | `unsigned long` | $ms$ | Milliseconds since Unix Epoch |
 | state | `unsigned char` | | System state, see `AfsState` struct below |
 | angularVelocityX | `signed short` | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
 | angularVelocityY | `signed short` | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
@@ -397,7 +397,7 @@ struct ecuTelemetryData {
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| timestamp | `unsigned long` | $ms$ | Milliseconds since Unix Epoch |
 | angularVelocityX | `signed short` | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
 | angularVelocityY | `signed short` | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
 | angularVelocityZ | `signed short` | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
@@ -450,7 +450,7 @@ struct ecuFluidSystemData {
 ```
 | Key | Data Type | Units | Description |
 | --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| timestamp | `unsigned long` | $ms$ | Milliseconds since Unix Epoch |
 | supplyVoltage | `unsigned short` | $mV$ | Power supply voltage |
 | batteryVoltage | `unsigned short` | $mV$ | Battery supply voltage |
 | solenoidStateCopvVent | `bool` | | COPV vent solenoid state |
