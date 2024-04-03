@@ -174,6 +174,9 @@ struct gseData {
 | solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
 | solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
 | solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
+| temperatureLox | `float` | $\degree C$ | Liquid oxygen temperature |
+| temperatureLng | `float` | $\degree C$ | Liquid methane temperature |
+| pressureGn2 | `float` | $psi$ | Nitrogen bottle pressure, max range 5000 psi |
 > `timestamp`, `igniterArmed`, `igniterContinuity`, and `solenoidInternalState*` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 ### ECU Command Packet
