@@ -88,6 +88,7 @@ Open Port `10001` for commands. See below for packet format.
 struct gseCommand {
     bool igniter0Fire;
     bool igniter1Fire;
+    bool alarm;
     bool solenoidStateGn2Fill;
     bool solenoidStateGn2Vent;
     bool solenoidStateMvasFill;
@@ -104,6 +105,7 @@ struct gseCommand {
 | --- | --- | --- |
 | igniter0Fire | `bool` | Fire igniter 0 |
 | igniter1Fire | `bool` | Fire igniter 1 |
+| alarm | `bool` | Sound alarm |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
 | solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
@@ -124,6 +126,7 @@ struct gseData {
     bool igniter1Continuity;
     bool igniterInternalState0;
     bool igniterInternalState1;
+    bool alarmInternalState;
     bool solenoidInternalStateGn2Fill;
     bool solenoidInternalStateGn2Vent;
     bool solenoidInternalStateMvasFill;
@@ -158,6 +161,7 @@ struct gseData {
 | igniter1Continuity | `bool` | | Igniter 1 continuity, `1` for continuity detected |
 | igniterInternalState0 | `bool` | | Igniter 0 fire state feedback |
 | igniterInternalState1 | `bool` | | Igniter 1 fire state feedback |
+| alarmInternalState1 | `bool` | | Alarm state feedback |
 | solenoidInternalStateGn2Fill | `bool` | | Nitrogen vehicle fill solenoid state feedback |
 | solenoidInternalStateGn2Vent | `bool` | | Nitrogen GSE panel vent solenoid state feedback |
 | solenoidInternalStateMvasFill | `bool` | | MVAS line fill solenoid state feedback |
