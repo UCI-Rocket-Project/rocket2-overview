@@ -122,6 +122,15 @@ struct gseData {
     bool igniterArmed;
     bool igniter1Continuity;
     bool igniter2Continuity;
+    bool solenoidInternalStateGn2Fill;
+    bool solenoidInternalStateGn2Vent;
+    bool solenoidInternalStateMvasFill;
+    bool solenoidInternalStateMvasVent;
+    bool solenoidInternalStateMvas;
+    bool solenoidInternalStateLoxFill;
+    bool solenoidInternalStateLoxVent;
+    bool solenoidInternalStateLngFill;
+    bool solenoidInternalStateLngVent;
     float supplyVoltage1 = std::nanf("");
     float supplyVoltage2 = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
@@ -145,6 +154,15 @@ struct gseData {
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
 | igniter1Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
 | igniter2Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| solenoidInternalStateGn2Fill | `bool` | | Nitrogen vehicle fill solenoid state feedback |
+| solenoidInternalStateGn2Vent | `bool` | | Nitrogen GSE panel vent solenoid state feedback |
+| solenoidInternalStateMvasFill | `bool` | | MVAS line fill solenoid state feedback |
+| solenoidInternalStateMvasVent | `bool` | | MVAS line vent solenoid state feedback |
+| solenoidInternalStateMvas | `bool` | | MVAS actuation solenoid state feedback |
+| solenoidInternalStateLoxFill | `bool` | | Liquid oxygen fill solenoid state feedback |
+| solenoidInternalStateLoxVent | `bool` | | Liquid oxygen GSE panel vent solenoid state feedback |
+| solenoidInternalStateLngFill | `float` | | Liquid methane fill solenoid state feedback |
+| solenoidInternalStateLngVent | `float` | | Liquid methane GSE panel vent solenoid state feedback |
 | supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
 | supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
@@ -156,7 +174,7 @@ struct gseData {
 | solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
 | solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
 | solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
-> `timestamp`, `igniterArmed`, and `igniterContinuity` fields are required. All other fields are optional and shall remain its default value to indicate no data.
+> `timestamp`, `igniterArmed`, `igniterContinuity`, and `solenoidInternalState*` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 ### ECU Command Packet
 ```c
@@ -182,6 +200,10 @@ struct ecuData {
     uint32_t timestamp;
     float packetRssi;
     float packetLoss;
+    bool solenoidInternalStateCopvVent;
+    bool solenoidInternalStatePv1;
+    bool solenoidInternalStatePv2;
+    bool solenoidInternalStateVent;
     float supplyVoltage = std::nanf("");
     float batteryVoltage = std::nanf("");
     float solenoidCurrentCopvVent = std::nanf("");
@@ -221,6 +243,10 @@ struct ecuData {
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | packetRssi | `float` | $dBm$ | Radio packet receive signal strength indicator |
 | packetLoss | `float` | | Radio packet loss rate ratio |
+| solenoidInternalStateCopvVent | `bool` | | COPV vent solenoid state feedback |
+| solenoidInternalStatePv1 | `bool` | | DLPR Dome fill solenoid state feedback |
+| solenoidInternalStatePv2 | `bool` | | DLPR Dome vent solenoid state feedback |
+| solenoidInternalStateVent | `bool` | | LOX & LNG vent solenoid state feedback |
 | supplyVoltage | `float` | $V$ | Power supply voltage |
 | batteryVoltage | `float` | $V$ | Battery supply voltage |
 | solenoidCurrentCopvVent | `float` | $A$ | COPV vent solenoid current feedback |
