@@ -69,19 +69,13 @@ All ground communication will be over TCP/IP Ethernet and use the standardized p
 Checksums are CRC-32 (polynomial `0x04C11DB7`). See files for CRC implementation in C++, this CRC is consistent with Python `binascii.crc32()`. This additional layer of checksum is added to ensure data integrity over embedded serial busses.\
 Subnet `10.0.0.1/16`. DHCP Range `10.0.255.0/24`. All other IPs reserved.
 
-### Control Devices 
-(Systems that host the Web Service or CLI)\
-IP Range: `10.0.1.0` - `10.0.1.5`.\
-Open Port `20000` for GSE Data. See below for packet format.\
-Open Port `20001` for ECU Data (via TRS).
-
 ### GSE
 IP: `10.0.2.0`.\
-Open Port `10000` for commands. See below for packet format.
+Open ports `10001-10002` for commands and data. See below for packet format.
 
 ### ECU
 IP: `10.0.2.1`.\
-Open Port `10001` for commands. See below for packet format.
+Open ports `10001-10002` for commands and data. See below for packet format.
 
 ### GSE Command Packet
 ```c
