@@ -122,6 +122,8 @@ struct gseData {
     bool igniterArmed;
     bool igniter0Continuity;
     bool igniter1Continuity;
+    bool igniterInternalState0;
+    bool igniterInternalState1;
     bool solenoidInternalStateGn2Fill;
     bool solenoidInternalStateGn2Vent;
     bool solenoidInternalStateMvasFill;
@@ -154,6 +156,8 @@ struct gseData {
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
 | igniter0Continuity | `bool` | | Igniter 0 continuity, `1` for continuity detected |
 | igniter1Continuity | `bool` | | Igniter 1 continuity, `1` for continuity detected |
+| igniterInternalState0 | `bool` | | Igniter 0 fire state feedback |
+| igniterInternalState1 | `bool` | | Igniter 1 fire state feedback |
 | solenoidInternalStateGn2Fill | `bool` | | Nitrogen vehicle fill solenoid state feedback |
 | solenoidInternalStateGn2Vent | `bool` | | Nitrogen GSE panel vent solenoid state feedback |
 | solenoidInternalStateMvasFill | `bool` | | MVAS line fill solenoid state feedback |
