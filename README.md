@@ -58,13 +58,105 @@ https://github.com/UCI-Rocket-Project/rocket2-cli
     - Types: `PascalCase`
     - Private variables within classes: `_camelCaseWithUnderscorePrefix`
 
+
 ## Embedded Firmware Contributing Guidelines
 1. Follow all items in Software Contributing Guidelines.
 2. Use [PlatformIO](https://platformio.org/).
 
 
-## Standardized Communication Format
-All ground communication will be over TCP/IP Ethernet and use the standardized packet format. All packets are packed little-endian.
+## Ground Network
+All ground communication will be over TCP/IP Ethernet and use the standardized packet format sent via raw bytes. All packets are packed little-endian.\
+Checksums are CRC-32 (polynomial `0x04C11DB7`). See files for CRC implementation in C++, this CRC is consistent with Python `binascii.crc32()`. This additional layer of checksum is added to ensure data integrity over embedded serial busses.\
+Subnet `10.0.0.1/16`. DHCP Range `10.0.255.0/24`. All other IPs reserved.
+
+### Control Devices 
+(Systems that host the Web Service or CLI)\
+IP Range: `10.0.1.0` - `10.0.1.5`.\
+Open Port `20000` for GSE Data. See below for packet format.\
+Open Port `20001` for ECU Data (via TRS).
+
+### GSE
+IP: `10.0.2.0`.\
+Open Port `10000` for commands. See below for packet format.
+
+### ECU
+IP: `10.0.2.1`.\
+Open Port `10001` for commands. See below for packet format.
+
+### GSE Command Packet
+```c
+struct gseCommand {
+    bool igniter1Fire;
+    bool igniter2Fire;
+    bool solenoidStateGn2Fill;
+    bool solenoidStateGn2Vent;
+    bool solenoidStateMvasFill;
+    bool solenoidStateMvasVent;
+    bool solenoidStateMvas;
+    bool solenoidStateLoxFill;
+    bool solenoidStateLoxVent;
+    bool solenoidStateLngFill;
+    bool solenoidStateLngVent;
+    uint32_t crc;
+};
+```
+| Key | Data Type | Description |
+| --- | --- | --- |
+| igniter1Fire | `bool` | Fire igniter 1 |
+| igniter2Fire | `bool` | Fire igniter 2 |
+| solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
+| solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
+| solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
+| solenoidStateMvasVent | `bool` | MVAS line vent, normally open |
+| solenoidStateMvas | `bool` | Actuate MVAS, normally closed |
+| solenoidStateLoxFill | `bool` | Liquid oxygen fill, normally closed |
+| solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally closed |
+| solenoidStateLngFill | `bool` | Liquid methane fill, normally closed |
+| solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally closed |
+> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
+
+### GSE Data Packet
+```c
+struct gseData {
+    uint32_t timestamp;
+    bool igniterArmed;
+    bool igniter1Continuity;
+    bool igniter2Continuity;
+    float supplyVoltage1 = std::nanf("");
+    float supplyVoltage2 = std::nanf("");
+    float solenoidCurrentGn2Fill = std::nanf("");
+    float solenoidCurrentGn2Vent = std::nanf("");
+    float solenoidCurrentMvasFill = std::nanf("");
+    float solenoidCurrentMvasVent = std::nanf("");
+    float solenoidCurrentMvas = std::nanf("");
+    float solenoidCurrentLoxFill = std::nanf("");
+    float solenoidCurrentLoxVent = std::nanf("");
+    float solenoidCurrentLngFill = std::nanf("");
+    float solenoidCurrentLngVent = std::nanf("");
+    float temperatureLox = std::nanf("");
+    float temperatureLng = std::nanf("");
+    float pressureGn2 = std::nanf("");
+    uint32_t crc;
+};
+```
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
+| igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
+| igniter1Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| igniter2Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
+| supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
+| solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
+| solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
+| solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
+| solenoidCurrentMvasVent | `float` | $A$ | MVAS line vent solenoid current feedback |
+| solenoidCurrentMvas | `float` | $A$ | MVAS actuation solenoid current feedback |
+| solenoidCurrentLoxFill | `float` | $A$ | Liquid oxygen fill solenoid current feedback |
+| solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
+| solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
+| solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
+> `timestamp`, `igniterArmed`, and `igniterContinuity` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 ### ECU Command Packet
 ```c
@@ -73,6 +165,7 @@ struct ecuCommand {
     bool solenoidStatePv1;
     bool solenoidStatePv2;
     bool solenoidStateVent;
+    uint32_t crc;
 };
 ```
 | Key | Data Type | Description |
@@ -120,6 +213,7 @@ struct ecuData {
     float ecefVelocityY = std::nanf("");
     float ecefVelocityZ = std::nanf("");
     float ecefVelocityAccuracy = std::nanf("");
+    uint32_t crc;
 };
 ```
 | Key | Data Type | Units | Description |
@@ -160,82 +254,9 @@ struct ecuData {
 | ecefVelocityAccuracy | `float` | $m/s$ | GNSS estimated velocity accuracy |
 > `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
 
-### GSE Command Packet
-```c
-struct gseCommand {
-    bool igniter1Fire;
-    bool igniter2Fire;
-    bool solenoidStateGn2Fill;
-    bool solenoidStateGn2Vent;
-    bool solenoidStateMvasFill;
-    bool solenoidStateMvasVent;
-    bool solenoidStateMvas;
-    bool solenoidStateLoxFill;
-    bool solenoidStateLoxVent;
-    bool solenoidStateLngFill;
-    bool solenoidStateLngVent;
-};
-```
-| Key | Data Type | Description |
-| --- | --- | --- |
-| igniter1Fire | `bool` | Fire igniter 1 |
-| igniter2Fire | `bool` | Fire igniter 2 |
-| solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
-| solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
-| solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
-| solenoidStateMvasVent | `bool` | MVAS line vent, normally open |
-| solenoidStateMvas | `bool` | Actuate MVAS, normally closed |
-| solenoidStateLoxFill | `bool` | Liquid oxygen fill, normally closed |
-| solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally closed |
-| solenoidStateLngFill | `bool` | Liquid methane fill, normally closed |
-| solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally closed |
-> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
-
-### GSE Data Packet
-```c
-struct gseData {
-    uint32_t timestamp;
-    bool igniterArmed;
-    bool igniter1Continuity;
-    bool igniter2Continuity;
-    float supplyVoltage1 = std::nanf("");
-    float supplyVoltage2 = std::nanf("");
-    float solenoidCurrentGn2Fill = std::nanf("");
-    float solenoidCurrentGn2Vent = std::nanf("");
-    float solenoidCurrentMvasFill = std::nanf("");
-    float solenoidCurrentMvasVent = std::nanf("");
-    float solenoidCurrentMvas = std::nanf("");
-    float solenoidCurrentLoxFill = std::nanf("");
-    float solenoidCurrentLoxVent = std::nanf("");
-    float solenoidCurrentLngFill = std::nanf("");
-    float solenoidCurrentLngVent = std::nanf("");
-    float temperatureLox = std::nanf("");
-    float temperatureLng = std::nanf("");
-    float pressureGn2 = std::nanf("");
-};
-```
-| Key | Data Type | Units | Description |
-| --- | --- | --- | --- |
-| timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
-| igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
-| igniter1Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
-| igniter2Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
-| supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
-| supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
-| solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
-| solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
-| solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
-| solenoidCurrentMvasVent | `float` | $A$ | MVAS line vent solenoid current feedback |
-| solenoidCurrentMvas | `float` | $A$ | MVAS actuation solenoid current feedback |
-| solenoidCurrentLoxFill | `float` | $A$ | Liquid oxygen fill solenoid current feedback |
-| solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
-| solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
-| solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
-> `timestamp`, `igniterArmed`, and `igniterContinuity` fields are required. All other fields are optional and shall remain its default value to indicate no data.
-
 
 ## Standardized Memory Format
-All data stored into onboard memory will use the standardized packet. All packets are 64 bytes aligned and packed little-endian. Checksums are IBM CRC-16 (polynomial `0x8005`).
+All data stored into onboard memory will use the standardized packet. All packets are 64 bytes aligned and packed little-endian. Checksums are IBM CRC-16 (polynomial `0x8005`). See files for CRC implementation in C++.
 
 ### AFS Telemetry Data
 ```c
