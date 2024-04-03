@@ -161,8 +161,8 @@ struct gseData {
 | solenoidInternalStateMvas | `bool` | | MVAS actuation solenoid state feedback |
 | solenoidInternalStateLoxFill | `bool` | | Liquid oxygen fill solenoid state feedback |
 | solenoidInternalStateLoxVent | `bool` | | Liquid oxygen GSE panel vent solenoid state feedback |
-| solenoidInternalStateLngFill | `float` | | Liquid methane fill solenoid state feedback |
-| solenoidInternalStateLngVent | `float` | | Liquid methane GSE panel vent solenoid state feedback |
+| solenoidInternalStateLngFill | `bool` | | Liquid methane fill solenoid state feedback |
+| solenoidInternalStateLngVent | `bool` | | Liquid methane GSE panel vent solenoid state feedback |
 | supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
 | supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
