@@ -86,8 +86,8 @@ Open Port `10001` for commands. See below for packet format.
 ### GSE Command Packet
 ```c
 struct gseCommand {
+    bool igniter0Fire;
     bool igniter1Fire;
-    bool igniter2Fire;
     bool solenoidStateGn2Fill;
     bool solenoidStateGn2Vent;
     bool solenoidStateMvasFill;
@@ -102,8 +102,8 @@ struct gseCommand {
 ```
 | Key | Data Type | Description |
 | --- | --- | --- |
+| igniter0Fire | `bool` | Fire igniter 0 |
 | igniter1Fire | `bool` | Fire igniter 1 |
-| igniter2Fire | `bool` | Fire igniter 2 |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
 | solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
@@ -120,8 +120,8 @@ struct gseCommand {
 struct gseData {
     uint32_t timestamp;
     bool igniterArmed;
+    bool igniter0Continuity;
     bool igniter1Continuity;
-    bool igniter2Continuity;
     bool solenoidInternalStateGn2Fill;
     bool solenoidInternalStateGn2Vent;
     bool solenoidInternalStateMvasFill;
@@ -131,8 +131,8 @@ struct gseData {
     bool solenoidInternalStateLoxVent;
     bool solenoidInternalStateLngFill;
     bool solenoidInternalStateLngVent;
+    float supplyVoltage0 = std::nanf("");
     float supplyVoltage1 = std::nanf("");
-    float supplyVoltage2 = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
     float solenoidCurrentMvasFill = std::nanf("");
@@ -152,8 +152,8 @@ struct gseData {
 | --- | --- | --- | --- |
 | timestamp | `unsigned long long` | $ms$ | Milliseconds since Unix Epoch |
 | igniterArmed | `bool` | | Igniter arming key state, `1` for armed |
-| igniter1Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
-| igniter2Continuity | `bool` | | Igniter continuity, `1` for continuity detected |
+| igniter0Continuity | `bool` | | Igniter 0 continuity, `1` for continuity detected |
+| igniter1Continuity | `bool` | | Igniter 1 continuity, `1` for continuity detected |
 | solenoidInternalStateGn2Fill | `bool` | | Nitrogen vehicle fill solenoid state feedback |
 | solenoidInternalStateGn2Vent | `bool` | | Nitrogen GSE panel vent solenoid state feedback |
 | solenoidInternalStateMvasFill | `bool` | | MVAS line fill solenoid state feedback |
@@ -163,8 +163,8 @@ struct gseData {
 | solenoidInternalStateLoxVent | `bool` | | Liquid oxygen GSE panel vent solenoid state feedback |
 | solenoidInternalStateLngFill | `bool` | | Liquid methane fill solenoid state feedback |
 | solenoidInternalStateLngVent | `bool` | | Liquid methane GSE panel vent solenoid state feedback |
+| supplyVoltage0 | `float` | $V$ | Power supply 0 voltage |
 | supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
-| supplyVoltage2 | `float` | $V$ | Power supply 2 voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
 | solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
 | solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
