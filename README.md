@@ -462,6 +462,34 @@ struct ecuFluidSystemData {
 | pressureInjectorLng | `unsigned short` | $10^{-1}\ psi$ | Injector methane pressure, max range 1000 psi |
 > `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
 
+### Notes on Packing and Transmission
+- Data types are organized little-endian in memory.
+- Packets are sent as raw bytes, least significant *byte* first, most significant *bit* first (unless superseded by protocol convention).
+
+A sample transmission sequence is as follows:
+```c
+void SendData(DataType *data) {
+    for (int i = 0; i < sizeof(DataType); i++) {
+        SendByte(*((uint8_t *)data + i));
+    }
+}
+
+void SendByte(uint8_t byte) {
+    for (int i = 7; i >= 0; i--) {
+        SendBit((byte & (1 << i)) >> i);
+    }
+}
+```
+
+A sample struct like so,
+```c
+struct DataType {
+    uint8_t a = 0xAA;
+    uint16_t b = 0x00BB;
+};
+```
+would be sent as follows (leftmost bit first, spaces added for readability): `1010 1010 1011 1011 0000 0000`
+
 
 ## Standardized Connector
 ![Pin](/media/gx16_pinout.png)
