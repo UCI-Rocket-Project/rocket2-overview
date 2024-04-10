@@ -34,6 +34,38 @@ https://github.com/UCI-Rocket-Project/rocket-tracker
 https://github.com/UCI-Rocket-Project/rocket2-cli
 
 
+## Connectors
+
+### GSE
+| Key | Short Key | Connector | Description |
+| --- | --- | --- | --- |
+| solenoidGn2Fill | GC-GN2-F | GX-16 | Nitrogen vehicle fill, normally closed |
+| solenoidGn2Vent | GC-GN2-V | GX-16 | Nitrogen GSE panel vent, normally open |
+| solenoidMvasFill | GC-MVS-F | GX-16 | MVAS line fill, normally closed |
+| solenoidMvasVent | GC-MVS-V | GX-16 | MVAS line vent, normally open |
+| solenoidMvas | GC-MVS-A | GX-16 | Actuate MVAS, normally closed |
+| solenoidLoxFill | GC-LOX-F | GX-16 | Liquid oxygen fill, normally closed |
+| solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally closed |
+| solenoidLngFill | GC-LNG-F | GX-16 | Liquid methane fill, normally closed |
+| solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally closed |
+| pressureGn2 | GS-GN2 | GX-12 | Nitrogen bottle pressure, max range 5000 psi |
+
+### ECU
+| Key | Short Key | Connector | Description |
+| --- | --- | --- | --- |
+| solenoidCopvVent | EC-CPV-V | GX-16 | COPV vent, normally closed |
+| solenoidPv1 | EC-PV1 | GX-16 | DLPR Dome fill, normally closed |
+| solenoidPv2 | EC-PV2 | GX-16 | DLPR Dome vent, normally open |
+| solenoidVent | EC-VNT | GX-16 | LOX & LNG vent, normally open |
+| pressureCopv | ES-CPV | GX-12 | COPV pressure, max range 5000 psi |
+| pressureLox | ES-LOX-T | GX-12 | Liquid oxygen tank pressure, max range 1000 psi |
+| pressureLng | ES-LNG-T | GX-12 | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | ES-LOX-I | GX-12 | Injector liquid oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | ES-LNG-I | GX-12 | Injector methane pressure, max range 1000 psi |
+
+
+
+
 ## Hardware Contributing Guidelines
 1. Use `main` instead of `master`.
 2. Use [KiCAD 7](https://www.kicad.org/).
