@@ -40,14 +40,14 @@ https://github.com/UCI-Rocket-Project/rocket2-cli
 | Key | Short Key | Connector | Description |
 | --- | --- | --- | --- |
 | solenoidGn2Fill | GC-GN2-F | GX-16 | Nitrogen vehicle fill, normally closed |
-| solenoidGn2Vent | GC-GN2-V | GX-16 | Nitrogen GSE panel vent, normally open |
+| solenoidGn2Vent | GC-GN2-V | GX-16 | Nitrogen GSE panel vent, normally closed |
 | solenoidMvasFill | GC-MVS-F | GX-16 | MVAS line fill, normally closed |
-| solenoidMvasVent | GC-MVS-V | GX-16 | MVAS line vent, normally open |
+| solenoidMvasVent | GC-MVS-V | GX-16 | MVAS line vent, normally closed |
 | solenoidMvas | GC-MVS-A | GX-16 | Actuate MVAS, normally closed |
 | solenoidLoxFill | GC-LOX-F | GX-16 | Liquid oxygen fill, normally closed |
-| solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally closed |
+| solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally open |
 | solenoidLngFill | GC-LNG-F | GX-16 | Liquid methane fill, normally closed |
-| solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally closed |
+| solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally open |
 | pressureGn2 | GS-GN2 | GX-12 | Nitrogen bottle pressure, max range 5000 psi |
 
 ### ECU
@@ -133,14 +133,14 @@ struct gseCommand {
 | igniter1Fire | `bool` | Fire igniter 1 |
 | alarm | `bool` | Sound alarm |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
-| solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally open |
+| solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally closed |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
-| solenoidStateMvasVent | `bool` | MVAS line vent, normally open |
+| solenoidStateMvasVent | `bool` | MVAS line vent, normally closed |
 | solenoidStateMvas | `bool` | Actuate MVAS, normally closed |
 | solenoidStateLoxFill | `bool` | Liquid oxygen fill, normally closed |
-| solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally closed |
+| solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally open |
 | solenoidStateLngFill | `bool` | Liquid methane fill, normally closed |
-| solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally closed |
+| solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally open |
 > All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
 
 ### GSE Data Packet
