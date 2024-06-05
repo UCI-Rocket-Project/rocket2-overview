@@ -41,12 +41,12 @@ https://github.com/UCI-Rocket-Project/rocket2-cli
 | --- | --- | --- | --- |
 | solenoidGn2Fill | GC-GN2-F | GX-16 | Nitrogen vehicle fill, normally closed |
 | solenoidGn2Vent | GC-GN2-V | GX-16 | Nitrogen GSE panel vent, normally closed |
+| solenoidGn2Disconnect | GC-GN2-Q | GX-16 | Actuate nitrogen quick disconnect |
 | solenoidMvasFill | GC-MVS-F | GX-16 | MVAS line fill, normally closed |
 | solenoidMvasVent | GC-MVS-V | GX-16 | MVAS line vent, normally closed |
-| solenoidMvas | GC-MVS-A | GX-16 | Actuate MVAS, normally closed |
-| solenoidLoxFill | GC-LOX-F | GX-16 | Liquid oxygen fill, normally closed |
+| solenoidMvasOpen | GC-MVS-O | GX-16 | Open MVAS, normally closed |
+| solenoidMvasClose | GC-MVS-C | GX-16 | Close MVAS, normally closed |
 | solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally open |
-| solenoidLngFill | GC-LNG-F | GX-16 | Liquid methane fill, normally closed |
 | solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally open |
 | pressureGn2 | GS-GN2 | GX-12 | Nitrogen bottle pressure, max range 5000 psi |
 
@@ -117,12 +117,12 @@ struct gseCommand {
     bool alarm;
     bool solenoidStateGn2Fill;
     bool solenoidStateGn2Vent;
+    bool solenoidStateGn2Disconnect;
     bool solenoidStateMvasFill;
     bool solenoidStateMvasVent;
-    bool solenoidStateMvas;
-    bool solenoidStateLoxFill;
+    bool solenoidStateMvasOpen;
+    bool solenoidStateMvasClose;
     bool solenoidStateLoxVent;
-    bool solenoidStateLngFill;
     bool solenoidStateLngVent;
     uint32_t crc;
 };
@@ -134,12 +134,12 @@ struct gseCommand {
 | alarm | `bool` | Sound alarm |
 | solenoidStateGn2Fill | `bool` | Nitrogen vehicle fill, normally closed |
 | solenoidStateGn2Vent | `bool` |  Nitrogen GSE panel vent, normally closed |
+| solenoidStateGn2Disconnect | `bool` | Actuate nitrogen quick disconnect |
 | solenoidStateMvasFill | `bool` | MVAS line fill, normally closed |
 | solenoidStateMvasVent | `bool` | MVAS line vent, normally closed |
-| solenoidStateMvas | `bool` | Actuate MVAS, normally closed |
-| solenoidStateLoxFill | `bool` | Liquid oxygen fill, normally closed |
+| solenoidStateMvasOpen | `bool` | Open MVAS, normally closed |
+| solenoidStateMvasClose | `bool` | Close MVAS, normally closed |
 | solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally open |
-| solenoidStateLngFill | `bool` | Liquid methane fill, normally closed |
 | solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally open |
 > All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
 
@@ -155,23 +155,23 @@ struct gseData {
     bool alarmInternalState;
     bool solenoidInternalStateGn2Fill;
     bool solenoidInternalStateGn2Vent;
+    bool solenoidInternalStateGn2Disconnect;
     bool solenoidInternalStateMvasFill;
     bool solenoidInternalStateMvasVent;
-    bool solenoidInternalStateMvas;
-    bool solenoidInternalStateLoxFill;
+    bool solenoidInternalStateMvasOpen;
+    bool solenoidInternalStateMvasClose;
     bool solenoidInternalStateLoxVent;
-    bool solenoidInternalStateLngFill;
     bool solenoidInternalStateLngVent;
     float supplyVoltage0 = std::nanf("");
     float supplyVoltage1 = std::nanf("");
     float solenoidCurrentGn2Fill = std::nanf("");
     float solenoidCurrentGn2Vent = std::nanf("");
+    float solenoidCurrentGn2Disconnect = std::nanf("");
     float solenoidCurrentMvasFill = std::nanf("");
     float solenoidCurrentMvasVent = std::nanf("");
-    float solenoidCurrentMvas = std::nanf("");
-    float solenoidCurrentLoxFill = std::nanf("");
+    float solenoidCurrentMvasOpen = std::nanf("");
+    float solenoidCurrentMvasClose = std::nanf("");
     float solenoidCurrentLoxVent = std::nanf("");
-    float solenoidCurrentLngFill = std::nanf("");
     float solenoidCurrentLngVent = std::nanf("");
     float temperatureLox = std::nanf("");
     float temperatureLng = std::nanf("");
@@ -190,23 +190,23 @@ struct gseData {
 | alarmInternalState1 | `bool` | | Alarm state feedback |
 | solenoidInternalStateGn2Fill | `bool` | | Nitrogen vehicle fill solenoid state feedback |
 | solenoidInternalStateGn2Vent | `bool` | | Nitrogen GSE panel vent solenoid state feedback |
+| solenoidInternalStateGn2Disconnect | `bool` | | Nitrogen quick disconnect solenoid state feedback |
 | solenoidInternalStateMvasFill | `bool` | | MVAS line fill solenoid state feedback |
 | solenoidInternalStateMvasVent | `bool` | | MVAS line vent solenoid state feedback |
-| solenoidInternalStateMvas | `bool` | | MVAS actuation solenoid state feedback |
-| solenoidInternalStateLoxFill | `bool` | | Liquid oxygen fill solenoid state feedback |
+| solenoidInternalStateMvasOpen | `bool` | | MVAS open solenoid state feedback |
+| solenoidInternalStateMvasClose | `bool` | | MVAS close solenoid state feedback |
 | solenoidInternalStateLoxVent | `bool` | | Liquid oxygen GSE panel vent solenoid state feedback |
-| solenoidInternalStateLngFill | `bool` | | Liquid methane fill solenoid state feedback |
 | solenoidInternalStateLngVent | `bool` | | Liquid methane GSE panel vent solenoid state feedback |
 | supplyVoltage0 | `float` | $V$ | Power supply 0 voltage |
 | supplyVoltage1 | `float` | $V$ | Power supply 1 voltage |
 | solenoidCurrentGn2Fill | `float` | $A$ | Nitrogen vehicle fill solenoid current feedback |
 | solenoidCurrentGn2Vent | `float` | $A$ | Nitrogen GSE panel vent solenoid current feedback |
+| solenoidCurrentGn2Disconnect | `float` | $A$ | Nitrogen quick disconnect solenoid current feedback |
 | solenoidCurrentMvasFill | `float` | $A$ | MVAS line fill solenoid current feedback |
 | solenoidCurrentMvasVent | `float` | $A$ | MVAS line vent solenoid current feedback |
-| solenoidCurrentMvas | `float` | $A$ | MVAS actuation solenoid current feedback |
-| solenoidCurrentLoxFill | `float` | $A$ | Liquid oxygen fill solenoid current feedback |
+| solenoidCurrentMvasOpen | `float` | $A$ | MVAS open solenoid current feedback |
+| solenoidCurrentMvasClose | `float` | $A$ | MVAS close solenoid current feedback |
 | solenoidCurrentLoxVent | `float` | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
-| solenoidCurrentLngFill | `float` | $A$ | Liquid methane fill solenoid current feedback |
 | solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
 | temperatureLox | `float` | $\degree C$ | Liquid oxygen temperature |
 | temperatureLng | `float` | $\degree C$ | Liquid methane temperature |
