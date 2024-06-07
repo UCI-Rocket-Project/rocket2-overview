@@ -56,13 +56,13 @@ https://github.com/UCI-Rocket-Project/rocket2-cli
 | solenoidCopvVent | EC-CPV-V | GX-16 | COPV vent, normally closed |
 | solenoidPv1 | EC-PV1 | GX-16 | DLPR Dome fill, normally closed |
 | solenoidPv2 | EC-PV2 | GX-16 | DLPR Dome vent, normally open |
-| solenoidVent | EC-VNT | GX-16 | LOX & LNG vent, normally open |
+| solenoidVent | EC-VNT | GX-16 | LOX & LNG vent, normally closed |
 | pressureCopv | ES-CPV | GX-12 | COPV pressure, max range 5000 psi |
 | pressureLox | ES-LOX-T | GX-12 | Liquid oxygen tank pressure, max range 1000 psi |
 | pressureLng | ES-LNG-T | GX-12 | Liquid methane tank pressure, max range 1000 psi |
 | pressureInjectorLox | ES-LOX-I | GX-12 | Injector liquid oxygen pressure, max range 1000 psi |
 | pressureInjectorLng | ES-LNG-I | GX-12 | Injector methane pressure, max range 1000 psi |
-
+> Note: solenoidVent is normally closed, while the vents for the tanks itself is normally open.
 
 
 
@@ -141,7 +141,7 @@ struct gseCommand {
 | solenoidStateMvasClose | `bool` | Close MVAS, normally closed |
 | solenoidStateLoxVent | `bool` | Liquid oxygen GSE panel vent, normally open |
 | solenoidStateLngVent | `bool` | Liquid methane GSE panel vent, normally open |
-> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
+> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an energized value. A value of `0` or `false` **always** corresponds to a non-energized valve, regardless of solenoid type.
 
 ### GSE Data Packet
 ```c
@@ -228,8 +228,8 @@ struct ecuCommand {
 | solenoidStateCopvVent | `bool` | COPV vent, normally closed |
 | solenoidStatePv1 | `bool` | DLPR Dome fill, normally closed |
 | solenoidStatePv2 | `bool` | DLPR Dome vent, normally open |
-| solenoidStateVent | `bool` | LOX & LNG vent, normally open |
-> All fields shall be filled with valid command. A value of `1` or `true` **always** corresponds to an open or flowing valve. A value of `0` or `false` **always** corresponds to a closed or blocking valve, regardless of solenoid type. The translation is handled on the device firmware.
+| solenoidStateVent | `bool` | LOX & LNG vent, normally closed |
+> All fields shall be filled with valid command. For solenoids, a value of `1` or `true` **always** corresponds to an energized value. A value of `0` or `false` **always** corresponds to a non-energized valve, regardless of solenoid type.
 
 ### ECU Data Packet
 ```c
