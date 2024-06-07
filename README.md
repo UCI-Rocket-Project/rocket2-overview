@@ -210,8 +210,10 @@ struct gseData {
 | solenoidCurrentLngVent | `float` | $A$ | Liquid methane GSE panel vent solenoid current feedback |
 | temperatureLox | `float` | $\degree C$ | Liquid oxygen temperature |
 | temperatureLng | `float` | $\degree C$ | Liquid methane temperature |
-| pressureGn2 | `float` | $psi$ | Nitrogen bottle pressure, max range 5000 psi |
+| pressureGn2 | `float` | $V$ | Nitrogen bottle pressure, max range 5000 psi |
 > `timestamp`, `igniterArmed`, `igniterContinuity`, and `solenoidInternalState*` fields are required. All other fields are optional and shall remain its default value to indicate no data.
+
+> Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.
 
 ### ECU Command Packet
 ```c
@@ -291,11 +293,11 @@ struct ecuData {
 | solenoidCurrentPv2 | `float` | $A$ | DLPR Dome vent solenoid current feedback |
 | solenoidCurrentVent | `float` | $A$ | LOX & LNG vent solenoid current feedback |
 | temperatureCopv | `float` | $\degree C$ | COPV temperature |
-| pressureCopv | `float` | $psi$ | COPV pressure, max range 5000 psi |
-| pressureLox | `float` | $psi$ | Liquid oxygen tank pressure, max range 1000 psi |
-| pressureLng | `float` | $psi$ | Liquid methane tank pressure, max range 1000 psi |
-| pressureInjectorLox | `float` | $psi$ | Injector liquid oxygen pressure, max range 1000 psi |
-| pressureInjectorLng | `float` | $psi$ | Injector methane pressure, max range 1000 psi |
+| pressureCopv | `float` | $V$ | COPV pressure, max range 5000 psi |
+| pressureLox | `float` | $V$ | Liquid oxygen tank pressure, max range 1000 psi |
+| pressureLng | `float` | $V$ | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | `float` | $V$ | Injector liquid oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | `float` | $V$ | Injector methane pressure, max range 1000 psi |
 | angularVelocityX | `float` | $rad/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
 | angularVelocityY | `float` | $rad/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
 | angularVelocityZ | `float` | $rad/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
@@ -317,6 +319,7 @@ struct ecuData {
 | ecefVelocityAccuracy | `float` | $m/s$ | GNSS estimated velocity accuracy |
 > `timestamp` field is required. All other fields are optional and shall remain its default value to indicate no data.
 
+> Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.
 
 ## Standardized Memory Format
 All data stored into onboard memory will use the standardized packet. All packets are 64 bytes aligned and packed little-endian. Checksums are IBM CRC-16 (polynomial `0x8005`). See files for CRC implementation in C++.
