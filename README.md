@@ -570,7 +570,7 @@ GX12 Connector \
 
 ### Load Cell
 GX12 Connector \
-1: Signal \
-2: GND \
-3: +5V \
-4: CLK
+1: Output- \
+2: 5V \
+3: GND \
+4: Output+
