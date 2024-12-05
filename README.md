@@ -567,3 +567,10 @@ GX12 Connector \
 2: CAN High \
 3: CAN Low \
 4: GND
+
+### Load Cell
+GX12 Connector \
+1: Signal \
+2: GND \
+3: +5V \
+4: CLK
