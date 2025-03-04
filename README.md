@@ -49,6 +49,7 @@ https://github.com/UCI-Rocket-Project/rocket2-cli
 | solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally open |
 | solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally open |
 | pressureGn2 | GS-GN2 | GX-12 | Nitrogen bottle pressure, max range 5000 psi |
+| pressureChamber | GS-GN2 | GX-12 | Combustion champer pressure, max range 1000 psi |
 
 ### ECU
 | Key | Short Key | Connector | Description |
@@ -145,7 +146,7 @@ struct gseCommand {
 
 ### GSE Data Packet
 ```c
-struct gseData {
+struct GseData {
     uint32_t timestamp;
     bool igniterArmed;
     bool igniter0Continuity;
@@ -176,6 +177,7 @@ struct gseData {
     float temperatureLox = std::nanf("");
     float temperatureLng = std::nanf("");
     float pressureGn2 = std::nanf("");
+    float pressureChamber = std::nanf("");
     uint32_t crc;
 };
 ```
@@ -211,6 +213,7 @@ struct gseData {
 | temperatureLox | `float` | $\degree C$ | Liquid oxygen temperature |
 | temperatureLng | `float` | $\degree C$ | Liquid methane temperature |
 | pressureGn2 | `float` | $V$ | Nitrogen bottle pressure, max range 5000 psi |
+| pressureChamber | `float` | $V$ | Combustion champer pressure, max range 1000 psi |
 > `timestamp`, `igniterArmed`, `igniterContinuity`, and `solenoidInternalState*` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 > Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.
