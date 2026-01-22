@@ -537,6 +537,16 @@ would be sent as follows (leftmost bit first, spaces added for readability): `10
 ## Standardized Connector
 ![Pin](/media/gx16_pinout.png)
 
+This diagram is confusing, especially because it immediately contridicts the Hxchen GX connector, the connectors we buy from amazonm pinout.
+Pins 2 and 3 are backwards on the Hxchen GX connectors in comparison to the picture above.
+
+
+<img width="901" height="1200" alt="image" src="https://github.com/user-attachments/assets/cc1033d3-a64a-43c7-a551-0cd9bc361ce3" />
+To clear up any confusion in the future, this is the pinout.
+RED: Power
+YELLOW: Signal
+BLACK: GND
+
 ### 24V Power
 GX16 Connector \
 1: +24V \
