@@ -1,5 +1,15 @@
-# Avionics data packets
-All data packets for communicationa between boards or to the webservice are defined in here.
+# Avionics data packets & networking
+* All data packets for communicationa between boards or to the webservice are defined in here. \
+
+* All ground communication will be over TCP/IP Ethernet and use the standardized packet format sent via raw bytes. All packets are packed little-endian.\
+
+* Checksums are CRC-32 (polynomial `0x04C11DB7`). See files for CRC implementation in C++, this CRC is consistent with Python `binascii.crc32()`. This additional layer of checksum is added to ensure data integrity over embedded serial busses.\
+  
+* Subnet `10.0.0.1/16`. DHCP Range `10.0.255.0/24`. All other IPs reserved.
+
+## GSE
+IP: `10.0.2.0`.\
+Open ports `10001-10002` for commands and data. See below for packet format.
 
 ### GSE Command Packet
 ```c
@@ -108,6 +118,10 @@ struct GseData {
 > `timestamp`, `igniterArmed`, `igniterContinuity`, and `solenoidInternalState*` fields are required. All other fields are optional and shall remain its default value to indicate no data.
 
 > Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.
+
+### ECU
+IP: `10.0.2.1`.\
+Open ports `10001-10002` for commands and data. See below for packet format.
 
 ### ECU Command Packet
 ```c
