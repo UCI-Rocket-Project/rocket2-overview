@@ -1,8 +1,7 @@
 # Rocket 2 Avionics System
 
 ## Overview
-![SystemArchitecture](/media/system_architecture.svg)
-
+WAITING ON SYSTEM DIAGRAM
 
 ## Subsystems
 
@@ -21,48 +20,6 @@ Firmware: https://github.com/UCI-Rocket-Project/rocket2-trs-firmware
 ### Ground Web Service & Graphical User Interface
 New GUI/Backend: https://github.com/UCI-Rocket-Project/VIVIIan \
 Deprecated GUI/Backend: https://github.com/UCI-Rocket-Project/rocket2-webservice-gui
-
-
-## Connectors
-
-### GSE
-| Key | Short Key | Connector | Description |
-| --- | --- | --- | --- |
-| solenoidGn2Fill | GC-GN2-F | GX-16 | Nitrogen vehicle fill, normally closed |
-| solenoidGn2Vent | GC-GN2-V | GX-16 | Nitrogen GSE panel vent, normally closed |
-| solenoidGn2Disconnect | GC-GN2-Q | GX-16 | Actuate nitrogen quick disconnect |
-| solenoidMvasFill | GC-MVS-F | GX-16 | MVAS line fill, normally closed |
-| solenoidMvasVent | GC-MVS-V | GX-16 | MVAS line vent, normally closed |
-| solenoidMvasOpen | GC-MVS-O | GX-16 | Open MVAS, normally closed |
-| solenoidMvasClose | GC-MVS-C | GX-16 | Close MVAS, normally closed |
-| solenoidLoxVent | GC-LOX-V | GX-16 | Liquid oxygen GSE panel vent, normally open |
-| solenoidLngVent | GC-LNG-V | GX-16 | Liquid methane GSE panel vent, normally open |
-| pressureGn2 | GS-GN2 | GX-12 | Nitrogen bottle pressure, max range 5000 psi |
-| pressureChamber | GS-GN2 | GX-12 | Combustion champer pressure, max range 1000 psi |
-
-### ECU
-| Key | Short Key | Connector | Description |
-| --- | --- | --- | --- |
-| solenoidCopvVent | EC-CPV-V | GX-16 | COPV vent, normally closed |
-| solenoidPv1 | EC-PV1 | GX-16 | DLPR Dome fill, normally closed |
-| solenoidPv2 | EC-PV2 | GX-16 | DLPR Dome vent, normally open |
-| solenoidVent | EC-VNT | GX-16 | LOX & LNG vent, normally closed |
-| pressureCopv | ES-CPV | GX-12 | COPV pressure, max range 5000 psi |
-| pressureLox | ES-LOX-T | GX-12 | Liquid oxygen tank pressure, max range 1000 psi |
-| pressureLng | ES-LNG-T | GX-12 | Liquid methane tank pressure, max range 1000 psi |
-| pressureInjectorLox | ES-LOX-I | GX-12 | Injector liquid oxygen pressure, max range 1000 psi |
-| pressureInjectorLng | ES-LNG-I | GX-12 | Injector methane pressure, max range 1000 psi |
-> Note: solenoidVent is normally closed, while the vents for the tanks itself is normally open.
-
-
-
-## Hardware Contributing Guidelines
-1. Use `main` instead of `master`.
-2. Use [KiCAD 8.02](https://www.kicad.org/).
-3. Use provided [.gitignore](/hardware/.gitignore). Do not include fabrication files (Gerber, BOM, etc).
-4. Use KiCAD standard component and footprint library for simple components (passives, transistors, standard footprints, etc). Use [UCIRP-KiCAD-Lib](https://github.com/UCI-Rocket-Project/UCIRP-KiCAD-Lib) as Git submodule for complex and non-standard components. **Do not import and use any other online library such as Adafruit, create new symbols and footprints if required and contribute to the shared library.**
-5. Make changes directly on the `main` branch. Ensure local files are up to date before making changes. Merge conflicts are practically irreconcilable, do not attempt to merge.
-6. Hierarchical sheets may be used for repeated schematics.
 
 
 ## Software Contributing Guidelines
