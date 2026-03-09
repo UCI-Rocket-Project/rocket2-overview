@@ -21,23 +21,6 @@ Firmware: https://github.com/UCI-Rocket-Project/rocket2-trs-firmware
 New GUI/Backend: https://github.com/UCI-Rocket-Project/VIVIIan \
 Deprecated GUI/Backend: https://github.com/UCI-Rocket-Project/rocket2-webservice-gui
 
-
-## Software Contributing Guidelines
-1. Use `main` instead of `master`.
-2. Use [pre-commit](https://pre-commit.com/). Copy provided [.pre-commit-config.yaml](/software/.pre-commit-config.yaml) to project repository root and install.
-    - **Python** files are formatted with [Black](https://github.com/psf/black). Uncomment relevant section in `.pre-commit-config.yaml`.
-    - **C/C++** files are formatted with [clang-format](https://clang.llvm.org/docs/ClangFormat.html). Copy provided [.clang-format](/software/.clang-format) to project repository root and uncomment relevant section in `.pre-commit-config.yaml`.
-    - **Javascript, Typescript, and web-related** files are formatted with [Prettier](https://prettier.io/). Copy provided [.prettierrc](/software/.prettierrc) to repository root and uncomment relevant section in `.pre-commit-config.yaml`.
-3. Each software module (each repository) shall have a singular command or script that enables the whole module.
-4. Naming conventions are as follows:
-    - Files: `snake_case.c`
-    - Variables: `camelCase`
-    - Constant variables: `UPPER_SNAKE_CASE`
-    - Functions: `PascalCase`
-    - Types: `PascalCase`
-    - Private variables within classes: `_camelCaseWithUnderscorePrefix`
-
-
 ## Embedded Firmware Contributing Guidelines
 1. Follow all items in Software Contributing Guidelines.
 2. Use [PlatformIO](https://platformio.org/).
