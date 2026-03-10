@@ -1,9 +1,10 @@
 # Rocket 2 Avionics System
 
 ## Overview
-WHATSUP ROCKET NATION. ITS YA BOI, PASTOR ROBERT. WELCOME TO AVIONICS. \
+WHATSUP ROCKET NATION. ITS YA BOI, PASTOR ROBERT. WELCOME TO AVIONICS.  
 
-This is overview for all avionics for UCI Rocket Project (Liquids), where we build custom PCBAs and software for our liquid, methalox rocket. \
+This is overview for all avionics for UCI Rocket Project (Liquids), where we build custom PCBAs and software for our liquid, methalox rocket.  
+
 Current Rocket: MOCH4  
 
 
