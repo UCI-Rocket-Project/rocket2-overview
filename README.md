@@ -31,7 +31,7 @@ Deprecated GUI/Backend: https://github.com/UCI-Rocket-Project/rocket2-webservice
 
 
 ## Avionics documentation
-[Data packets and networking guide](data_packets.md) \
+[Data packets and networking](data_packets.md) \
 [Standardized connectors](standardized_connectors.md)
 
 
