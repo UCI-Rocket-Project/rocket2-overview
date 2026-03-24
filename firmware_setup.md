@@ -1,31 +1,69 @@
-Make sure latest cubeide and cubemx are installed (cubeide not necessary)
+# Overview
+This guide outlines the standard procedure for initializing an STM32 project using **STM32CubeMX** with **VSCode**
 
-In cube mx {
-  file-> new project
+---
 
-  select MCU
+## 1. Project Initialization
+Depending on your starting point, choose one of the two methods below:
 
-  IF IMPORTING IOC {
-    file -> import project
+### Option A: New Project
+1. Navigate to `File` > `New Project`.
+2. Use the **MCU/Board Selector** to choose your specific hardware.
 
-    insert ioc path
+### Option B: Import Existing Configuration (`.ioc`)
+1. Navigate to `File` > `Import Project`.
+2. Browse to and select your `.ioc` file path.
+3. Click **OK** to load the existing configuration (default settings are recommended).
 
-    default settings are good
+---
 
-    press ok
-  }
+## 2. Project Manager Configuration
+Switch to the **Project Manager** tab and apply the following settings:
 
-  go to project manager tab
+| Setting | Selection |
+| :--- | :--- |
+| **Project Name** | *Insert your project name* |
+| **Application Structure** | `Advanced` |
+| **Toolchain / IDE** | `CMake` |
 
-  insert project name
+![STM32CubeMX Configuration](https://github.com/user-attachments/assets/fc09d8b5-b3bc-4903-a7c2-8e85d68451b1)
+
+---
+
+## 3. IOC configuration
+IOC file configuration is entirely dependent on your use case. But here's an example:
+<img width="671" height="724" alt="image" src="https://github.com/user-attachments/assets/8ba7b1ef-51e4-42ee-a377-30ced45a5884" />
+
+Some common mistakes on IOC configuration:
+* Make sure to run the automatic clock configuration with the desired **EXTERNAL** crystal oscillator frequency.
+  * If you don't do this, then the stm32 will just run off of its internal crystal.
+  * Important if you are trying to use USB 2.0 high speed
+* Keep in mind the prescalars and baud rates for SPI/I2C and UART respectively.
+  * 90% of the time for an error when trying to talk to a downstream device, like reading nothing or straight garbage, it's because your timing is wrong from these settings.
+
+## 4. Code Generation
+Before finalizing, ensure your settings match the configuration shown below:
+
+1. Click **GENERATE CODE** in the top-right corner.
+2. STM32CubeMX will generate the `CMakeLists.txt` and necessary HAL/LL drivers.
+
+---
 
 
-  application structure: advanced
+# TO BE UPDATED BELOW 
+the following hasn't been updated to be readable but generally has what's needed to build a project
 
-  toolchain/IDE: CMake
 
-  save project (file -> save)
 
+
+
+## 4. Next Steps
+Once the code is generated, you can build the project using:
+```bash
+mkdir build
+cd build
+cmake ..
+make
   generate code
      make sure to download firmware packages as necessary
 }
