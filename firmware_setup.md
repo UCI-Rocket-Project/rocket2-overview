@@ -49,85 +49,68 @@ Before finalizing, ensure your settings match the configuration shown below:
 
 ---
 
+## 4. VSCode Setup & Extensions
+Once you click **GENERATE CODE** in CubeMX, transition to VSCode:
 
-# TO BE UPDATED BELOW 
-the following hasn't been updated to be readable but generally has what's needed to build a project
+### Required Extensions
+* **STM32 VS Code Extension** (Official from STMicroelectronics)
+* **CMake Tools**
 
+### Workspace Initialization
+1. Open the generated project folder in VSCode.
+2. In the bottom right notification, select **"Open CMake project as STM32 Project"**.
+3. Open the **STM32 Cube Extension** tab on the left sidebar.
+4. Select your specific board/probe and save the configuration.
 
+---
 
+## 5. Building the Project
+To verify the initial C project:
+1. Open the **CMake** extension tab.
+2. Locate the **"Run Task"** pinned command (hover over the header to reveal the play button).
+3. Select `CMake: Build`.
+4. Ensure the terminal outputs: `[driver] Build finished successfully.`
 
+---
 
-## 4. Next Steps
-Once the code is generated, you can build the project using:
-```bash
-mkdir build
-cd build
-cmake ..
-make
-  generate code
-     make sure to download firmware packages as necessary
-}
+## 6. Upgrading to C++ & Custom Drivers
+To support C++ development and include custom driver libraries (e.g., `RocketDrivers`), follow these steps:
 
-In VSCode {
-  extensions: "STM32CubeIDE for Visual Studio Code"
+### File Structure Setup
+1. Create `Core/Src/main.cpp`.
+2. Create `Core/Inc/cpp_main.h`.
+3. Create a folder named `RocketDrivers` in the root directory for your custom libraries.
 
-  open project folder
+### Bridge C to C++
+In **`main.c`**, wrap your C++ entry point to prevent linker errors:
+### C file
+```c
+/* USER CODE BEGIN Includes */
+#include "cpp_main.h"
+/* USER CODE END Includes */
 
-  select Debug configuration preset
+// ... inside main() function ...
 
-  in the bottom right, select to open cmake project as stm32 project
+/* USER CODE BEGIN 2 */
+cpp_main();
+/* USER CODE END 2 */
+```
+### Cmake file
+```cmake
+# 1. Enable CXX (C++) Support
+enable_language(C ASM CXX)
 
-  go to stm32cube extension tag on left bar
+# 2. Define your Chip Family (Example: STM32F1)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE STM32F1)
 
-  setup stm32cubeide project
-
-  select your board
-
-  save all
-}
-
-We will run build to test, then do the more advanced things.
-
-To Build {
-  Open CMake extension tab (should be installed with cubeide)
-
-  Press the play button to the right of the "Run Task" pinned command (hidden until hover)
-
-  Select cmake -> CMake: Build
-
-  Build should succeed in terminal at bottom: "build finished successfully."
-}
-
-Status report: Project is currently C base project. We will be upgrading it to support cpp and include our drivers.
-
-To upgrade to cpp and include drivers {
-  Add main.cpp to Core/Src directory. Base code is available in the main.cpp file
-
-  Add cpp_main.h to Core/Inc directory. Code is available in the cpp_main.h file
-
-  Open main.c (NOT main.cpp). In the "USER CODE BEGIN Includes" section insert:
-    #include "cpp_main.h"
-
-  In the "USER CODE BEGIN 2" section insert:
-    cpp_main();
-
-  Make a "RocketDrivers" folder
-
-  Go into CMakeLists.txt
-    edit `enable_language(C ASM)` to be `enable_language(C ASM CXX)`
-    add `STM32F1` or whatever your STM chip family is in the `target_compile_definitions` directive
-
-  Replace the `target_sources` and `target_include_directories` directives with:
-
-``````````````````````````````````````````````````````````
+# 3. Recursive Driver Discovery
 file(GLOB_RECURSE ALL_DRIVER_SOURCES 
     "RocketDrivers/*.c"
     "RocketDrivers/*.cc"
     "RocketDrivers/*.cpp"
 )
 
-# B. Recursively find all directories that contain .h files
-# (This allows you to include "header.h" directly, even if it's deep in a folder)
+# Find all directories containing headers in RocketDrivers
 file(GLOB_RECURSE ALL_DRIVER_HEADERS "RocketDrivers/*.h")
 set(ALL_DRIVER_INC_DIRS "")
 foreach(_headerFile ${ALL_DRIVER_HEADERS})
@@ -136,21 +119,14 @@ foreach(_headerFile ${ALL_DRIVER_HEADERS})
 endforeach()
 list(REMOVE_DUPLICATES ALL_DRIVER_INC_DIRS)
 
-# Add sources to executable
+# 4. Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
     ${ALL_DRIVER_SOURCES}
     Core/Src/main.cpp
 )
 
-# Add include paths
+# 5. Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
     ${ALL_DRIVER_INC_DIRS}
 )
-``````````````````````````````````````````````````````````
-}
-
-Run a build to test this setup
-
-cmake clean if project needs to be relinked
+```
