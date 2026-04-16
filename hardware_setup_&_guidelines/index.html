@@ -1,0 +1,761 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../standardized_connectors/">
+      
+      
+        <link rel="next" href="../software_guidelines/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Hardware Setup & Guidelines - UCI Rocket Project Overview</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware-setup-and-constribution-guidelines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="UCI Rocket Project Overview" class="md-header__button md-logo" aria-label="UCI Rocket Project Overview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UCI Rocket Project Overview
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware Setup & Guidelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="UCI Rocket Project Overview" class="md-nav__button md-logo" aria-label="UCI Rocket Project Overview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    UCI Rocket Project Overview
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avionics Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Packets & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../standardized_connectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standardized Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Setup & Guidelines
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Setup & Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#starting-a-kicad-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting a KiCad Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-kicad-a-kicad-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a KiCAD / a KiCAD project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up a KiCAD / a KiCAD project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kicad-projects-importssetup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD projects imports/setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KiCAD projects imports/setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-layout-constraints-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Layout Constraints File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ucirps-component-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UCIRP's component library
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kicad-projects-importssetup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD projects imports/setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kicad-schematic-styling-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD schematic styling guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software_guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Convention & Styling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stm32_vscode_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STM32 VS Code Extension Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#starting-a-kicad-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting a KiCad Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-kicad-a-kicad-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a KiCAD / a KiCAD project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up a KiCAD / a KiCAD project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kicad-projects-importssetup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD projects imports/setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KiCAD projects imports/setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-layout-constraints-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Layout Constraints File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ucirps-component-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UCIRP's component library
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kicad-projects-importssetup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD projects imports/setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kicad-schematic-styling-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KiCAD schematic styling guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hardware-setup-and-constribution-guidelines"><strong>Hardware setup and constribution guidelines</strong></h1>
+<p>UCI Rocket Project (Liquids) uses the most up-to-date version of <strong>KiCAD</strong> for our PCBAs. Additionally, we use <strong>JLCPCB</strong> as our main fabrication house and assembler for our PCBAs.</p>
+<p>This will be a guide on how to setup a KiCAD project for the team and also some guidelines for the schematic capture.</p>
+<h2 id="starting-a-kicad-project"><strong>Starting a KiCad Project</strong></h2>
+<p>All of our hardware projects are version-controlled using GitHub. To get a new board started, follow these steps:</p>
+<ol>
+<li><strong>Create the Repository:</strong> Create a new repository in our GitHub organization using the standard naming convention: <code>rocket#-name-hardware</code> (for example, <code>rocket2-ecu-hardware</code>).</li>
+<li><strong>Clone First:</strong> Before touching KiCad, clone the empty repository to your local machine:
+   <code>git clone &lt;repository-link&gt;</code></li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>WARNING: REPOSITORY INITIALIZATION</strong></p>
+<p>Always start with <code>git clone</code>. <strong>Do not</strong> run <code>git init</code> locally. </p>
+<p><strong>Note:</strong> We strictly use <code>main</code> instead of <code>master</code> as our primary branch. Seriously, please do not push a <code>master</code> branch!</p>
+</blockquote>
+<h2 id="setting-up-a-kicad-a-kicad-project"><strong>Setting up a KiCAD / a KiCAD project</strong></h2>
+<hr />
+<h3 id="kicad-projects-importssetup"><strong>KiCAD projects imports/setup</strong></h3>
+<p>There are 2 imports required before starting your board:</p>
+<ul>
+<li>Custom Layout Constraints File (<code>.kicad_dru</code>) </li>
+<li>UCIRP's Component Library (<code>UCI-KiCAD-Lib</code>)</li>
+</ul>
+<div style="text-align: center;">
+  <img src="../media/hardware_media/KiCAD_Imports.png" alt="KiCAD Project Structure" width="400">
+  <br>
+  <em>Figure 1: Required project file/folder</em>
+</div>
+
+<h4 id="custom-layout-constraints-file">Custom Layout Constraints File</h4>
+<p>The Custom Layout Rules are directly from JLCPCB's design tolerances for a standard PCB.
+The .kicad_DRU file can be found here: <a href="../hardware/KiCad-DesignRules/JLCPCB/JLCPCB.kicad_dru">JLCPCB.kicad_dru</a></p>
+<p>Copy this file into your KiCAD project and rename the name of the file to: <code>"your_project_name".kicad_dru</code></p>
+<p>The KiCAD project will not detect the custom constraint file unless it has the same name the project.</p>
+<h4 id="ucirps-component-library">UCIRP's component library</h4>
+<p>Avionics has created its own custom hardware library for KiCAD with some of the components we assemble onto our boards. To add our KiCAD libary, run the following command while in you project's directory.</p>
+<p><code>git submodule add https://github.com/UCI-Rocket-Project/UCIRP-KiCAD-Lib.git</code></p>
+<p>A new folder should appear in your project, and now you can the add <strong>both the symbol &amp; footprint libraries</strong> into your project.</p>
+<div style="text-align: center;">
+  <img src="../media/hardware_media/KiCAD_Import_Library.png" alt="KiCAD Import Library Dialog" width="600">
+  <br>
+  <em>Figure 2: Required KiCAD import library</em>
+</div>
+<blockquote>
+<p>⚠️ <strong>IMPORTANT: PROJECT SPECIFIC LIBRARIES</strong></p>
+<p>You must add the library as a <strong>Project Specific</strong> library local to the project's file path. If you add it globally, the project will not link the library for other team members when they pull the repository.</p>
+</blockquote>
+<hr />
+<h3 id="kicad-projects-importssetup_1"><strong>KiCAD projects imports/setup</strong></h3>
+<p>Additionally, 2 extension that are basically essential for our KiCAD project:</p>
+<ul>
+<li>"Fabrication Toolkit" for JLCPCB fabrication files</li>
+<li>"Replicate Layout" for replicating layout of hierarchical sheet copies on the PCB</li>
+</ul>
+<div style="text-align: center;">
+  <img src="../media/hardware_media/KiCAD_Extensions.png" alt="KiCAD Project Structure" width="600">
+  <br>
+  <em>Figure 3: Required KiCAD extensions</em>
+</div>
+
+<hr />
+<h2 id="kicad-schematic-styling-guide"><strong>KiCAD schematic styling guide</strong></h2>
+<p>Some notes on how to work on your project. </p>
+<ol>
+<li><strong>Use hierarchical sheets when possible.</strong></li>
+<li>
+<p><strong>No yellow backgrounds for components.</strong></p>
+<ul>
+<li>While this is entirely subjective, our team standard dictates that all schematic components must have empty backgrounds for visual consistency.</li>
+</ul>
+<p><div style="text-align: center;">
+<img src="../media/hardware_media/KiCAD_schematic_example.png" alt="KiCAD Schematic Example" width="600">
+<br>
+<em>Figure 4: KiCAD Schematic Example</em>
+</div></p>
+</li>
+<li>
+<p><strong>Do not attempt to make separate branches or merge</strong></p>
+<ul>
+<li>Ensure local files are up to date before making changes. Merge conflicts are practically irreconcilable, do not attempt to merge.</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

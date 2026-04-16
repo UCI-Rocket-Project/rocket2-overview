@@ -1,0 +1,1000 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../software_guidelines/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>STM32 VS Code Extension Guide - UCI Rocket Project Overview</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="UCI Rocket Project Overview" class="md-header__button md-logo" aria-label="UCI Rocket Project Overview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UCI Rocket Project Overview
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              STM32 VS Code Extension Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="UCI Rocket Project Overview" class="md-nav__button md-logo" aria-label="UCI Rocket Project Overview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    UCI Rocket Project Overview
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avionics Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Packets & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../standardized_connectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standardized Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware_setup_%26_guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Setup & Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software_guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Convention & Styling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STM32 VS Code Extension Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STM32 VS Code Extension Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Project Initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Project Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: New Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-import-existing-configuration-ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Import Existing Configuration (.ioc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-project-manager-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Project Manager Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ioc-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IOC configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-code-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Code Generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-vscode-setup-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. VSCode Setup &amp; Extensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. VSCode Setup &amp; Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workspace-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-building-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Building the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-upgrading-to-c-custom-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Upgrading to C++ &amp; Custom Drivers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Upgrading to C++ &amp; Custom Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-structure-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Structure Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridge-c-to-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridge C to C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmake-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cmake file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Project Initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Project Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: New Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-import-existing-configuration-ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Import Existing Configuration (.ioc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-project-manager-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Project Manager Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ioc-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IOC configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-code-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Code Generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-vscode-setup-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. VSCode Setup &amp; Extensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. VSCode Setup &amp; Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workspace-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-building-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Building the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-upgrading-to-c-custom-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Upgrading to C++ &amp; Custom Drivers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Upgrading to C++ &amp; Custom Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-structure-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Structure Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridge-c-to-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridge C to C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmake-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cmake file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="overview">Overview</h1>
+<p>This guide outlines the standard procedure for initializing an STM32 project using <strong>STM32CubeMX</strong> with <strong>VSCode</strong></p>
+<hr />
+<h2 id="1-project-initialization">1. Project Initialization</h2>
+<p>Depending on your starting point, choose one of the two methods below:</p>
+<h3 id="option-a-new-project">Option A: New Project</h3>
+<ol>
+<li>Navigate to <code>File</code> &gt; <code>New Project</code>.</li>
+<li>Use the <strong>MCU/Board Selector</strong> to choose your specific hardware.</li>
+</ol>
+<h3 id="option-b-import-existing-configuration-ioc">Option B: Import Existing Configuration (<code>.ioc</code>)</h3>
+<ol>
+<li>Navigate to <code>File</code> &gt; <code>Import Project</code>.</li>
+<li>Browse to and select your <code>.ioc</code> file path.</li>
+<li>Click <strong>OK</strong> to load the existing configuration (default settings are recommended).</li>
+</ol>
+<hr />
+<h2 id="2-project-manager-configuration">2. Project Manager Configuration</h2>
+<p>Switch to the <strong>Project Manager</strong> tab and apply the following settings:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Setting</th>
+<th style="text-align: left;">Selection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Project Name</strong></td>
+<td style="text-align: left;"><em>Insert your project name</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Application Structure</strong></td>
+<td style="text-align: left;"><code>Advanced</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Toolchain / IDE</strong></td>
+<td style="text-align: left;"><code>CMake</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="STM32CubeMX Configuration" src="https://github.com/user-attachments/assets/fc09d8b5-b3bc-4903-a7c2-8e85d68451b1" /></p>
+<hr />
+<h2 id="3-ioc-configuration">3. IOC configuration</h2>
+<p>IOC file configuration is entirely dependent on your use case. But here's an example:
+<img width="671" height="724" alt="image" src="https://github.com/user-attachments/assets/8ba7b1ef-51e4-42ee-a377-30ced45a5884" /></p>
+<p>Some common mistakes on IOC configuration:
+* Make sure to run the automatic clock configuration with the desired <strong>EXTERNAL</strong> crystal oscillator frequency.
+  * If you don't do this, then the stm32 will just run off of its internal crystal.
+  * Important if you are trying to use USB 2.0 high speed
+* Keep in mind the prescalars and baud rates for SPI/I2C and UART respectively.
+  * 90% of the time for an error when trying to talk to a downstream device, like reading nothing or straight garbage, it's because your timing is wrong from these settings.</p>
+<h2 id="4-code-generation">4. Code Generation</h2>
+<p>Before finalizing, ensure your settings match the configuration shown below:</p>
+<ol>
+<li>Click <strong>GENERATE CODE</strong> in the top-right corner.</li>
+<li>STM32CubeMX will generate the <code>CMakeLists.txt</code> and necessary HAL/LL drivers.</li>
+</ol>
+<hr />
+<h2 id="4-vscode-setup-extensions">4. VSCode Setup &amp; Extensions</h2>
+<p>Once you click <strong>GENERATE CODE</strong> in CubeMX, transition to VSCode:</p>
+<h3 id="required-extensions">Required Extensions</h3>
+<ul>
+<li><strong>STM32 VS Code Extension</strong> (Official from STMicroelectronics)</li>
+<li><strong>CMake Tools</strong></li>
+</ul>
+<h3 id="workspace-initialization">Workspace Initialization</h3>
+<ol>
+<li>Open the generated project folder in VSCode.</li>
+<li>In the bottom right notification, select <strong>"Open CMake project as STM32 Project"</strong>.</li>
+<li>Open the <strong>STM32 Cube Extension</strong> tab on the left sidebar.</li>
+<li>Select your specific board/probe and save the configuration.</li>
+</ol>
+<hr />
+<h2 id="5-building-the-project">5. Building the Project</h2>
+<p>To verify the initial C project:
+1. Open the <strong>CMake</strong> extension tab.
+2. Locate the <strong>"Run Task"</strong> pinned command (hover over the header to reveal the play button).
+3. Select <code>CMake: Build</code>.
+4. Ensure the terminal outputs: <code>[driver] Build finished successfully.</code></p>
+<hr />
+<h2 id="6-upgrading-to-c-custom-drivers">6. Upgrading to C++ &amp; Custom Drivers</h2>
+<p>To support C++ development and include custom driver libraries (e.g., <code>RocketDrivers</code>), follow these steps:</p>
+<h3 id="file-structure-setup">File Structure Setup</h3>
+<ol>
+<li>Create <code>Core/Src/main.cpp</code>.</li>
+<li>Create <code>Core/Inc/cpp_main.h</code>.</li>
+<li>Create a folder named <code>RocketDrivers</code> in the root directory for your custom libraries.</li>
+</ol>
+<h3 id="bridge-c-to-c">Bridge C to C++</h3>
+<p>In <strong><code>main.c</code></strong>, wrap your C++ entry point to prevent linker errors:</p>
+<h3 id="c-file">C file</h3>
+<pre><code class="language-c">/* USER CODE BEGIN Includes */
+#include &quot;cpp_main.h&quot;
+/* USER CODE END Includes */
+
+// ... inside main() function ...
+
+/* USER CODE BEGIN 2 */
+cpp_main();
+/* USER CODE END 2 */
+</code></pre>
+<h3 id="cmake-file">Cmake file</h3>
+<pre><code class="language-cmake"># 1. Enable CXX (C++) Support
+enable_language(C ASM CXX)
+
+# 2. Define your Chip Family (Example: STM32F1)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE STM32F1)
+
+# 3. Recursive Driver Discovery
+file(GLOB_RECURSE ALL_DRIVER_SOURCES 
+    &quot;RocketDrivers/*.c&quot;
+    &quot;RocketDrivers/*.cc&quot;
+    &quot;RocketDrivers/*.cpp&quot;
+)
+
+# Find all directories containing headers in RocketDrivers
+file(GLOB_RECURSE ALL_DRIVER_HEADERS &quot;RocketDrivers/*.h&quot;)
+set(ALL_DRIVER_INC_DIRS &quot;&quot;)
+foreach(_headerFile ${ALL_DRIVER_HEADERS})
+    get_filename_component(_dir ${_headerFile} DIRECTORY)
+    list(APPEND ALL_DRIVER_INC_DIRS ${_dir})
+endforeach()
+list(REMOVE_DUPLICATES ALL_DRIVER_INC_DIRS)
+
+# 4. Add sources to executable
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    ${ALL_DRIVER_SOURCES}
+    Core/Src/main.cpp
+)
+
+# 5. Add include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${ALL_DRIVER_INC_DIRS}
+)
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
