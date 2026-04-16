@@ -7,6 +7,10 @@
   
 * Subnet `10.0.0.1/16`. DHCP Range `10.0.255.0/24`. All other IPs reserved.
 
+
+# Depreciated Data packets
+Everything below is from previous test setups. We're just keeping this here as an example and for future use.
+
 ## GSE
 IP: `10.0.2.0`.\
 Open ports `10001-10002` for commands and data. See below for packet format.

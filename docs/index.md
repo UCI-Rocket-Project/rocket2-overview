@@ -24,6 +24,8 @@ All designed hardware is made using **KiCad** as the ECAD software, and Firmware
 | 🔥**Engine Control Unit (ECU v2.0)**🔥 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-ecu-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-ecu-firmware) |
 | 🌍**Ground Support Electronics (GSE v2.1)**🌍 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-gse-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-gse-firmware) |
 | 🛰️**Telemetry Radio System (TRS)**🛰️ | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-trs-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-trs-firmware) |
+| 🔌**Universal Adapter Board (UAB)**🔌 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-universal-adapter-board) | N/A |
+
 
 ### 📊 Ground Control & GUI
 * **Primary GUI (VIVIIan):** [UCI-Rocket-Project/VIVIIan](https://github.com/UCI-Rocket-Project/VIVIIan)
