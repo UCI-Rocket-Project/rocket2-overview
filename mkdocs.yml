@@ -1,0 +1,11 @@
+site_name: UCI Rocket Project Overview
+theme:
+  name: material
+
+nav:
+  - Avionics Overview: index.md
+  - Data Packets & Networking: data_packets.md
+  - Standardized Connectors: standardized_connectors.md
+  - Hardware Setup & Guidelines: hardware_setup_&_guidelines.md
+  - Software Convention & Styling: software_guidelines.md
+  - STM32 VS Code Extension Guide: stm32_vscode_guide.md
