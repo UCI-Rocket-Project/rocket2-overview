@@ -14,11 +14,11 @@ All designed hardware is made using **KiCad** as the ECAD software, and Firmware
 &nbsp;
 
 ### **AV team 25-26**
-![Team Photo](../media/AV_Team1.jpg){: style="width:800px; display:block; margin: 0 auto;"}
+![Team Photo](/media/AV_Team1.jpg){: style="width:800px; display:block; margin: 0 auto;"}
 
-![Team Photo](../media/AV_Team2.jpg){: style="width:800px; display:block; margin: 0 auto;"}
+![Team Photo](/media/AV_Team2.jpg){: style="width:800px; display:block; margin: 0 auto;"}
 
-![Team Photo](../media/AV_Team3.jpg){: style="width:800px; display:block; margin: 0 auto;"}
+![Team Photo](/media/AV_Team3.jpg){: style="width:800px; display:block; margin: 0 auto;"}
 
 
 ## 🧩 **System Diagram**
