@@ -7,29 +7,56 @@ This is the central hub for the **Avionics team at UCI Rocket Project (Liquids)*
 
 All designed hardware is made using **KiCad** as the ECAD software, and Firmware is made with **STM32CubeMX**.
 
-### Current Rocket: 🚀🚀 MOCH4 🚀🚀  
+&nbsp;
 
+#### **Current Rocket:** 🚀🚀 MOCH4 🚀🚀  
+
+&nbsp;
+
+### **AV team 25-26**
+<div style="text-align: center;">
+  <img src="../media/AV_Team1.jpg" width="800">
+  <br>
+</div>
+<div style="text-align: center;">
+  <img src="../media/AV_Team2.jpg" width="800">
+  <br>
+</div>
+<div style="text-align: center;">
+  <img src="../media/AV_Team3.jpg" width="800">
+  <br>
+</div>
 ---
 
 ## 🧩 **System Diagram**
-!!! info "Status: Work in Progress"
-    We are currently updating the system-level block diagram. Check back soon for the full hardware interconnect map.
-
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="1000" height="700" src="https://embed.figma.com/board/hxCFRs9DTTg6R1RPPCGrtq/AV-System-Diagram?node-id=0-1&embed-host=share" allowfullscreen></iframe>
 ---
 
 ## 🛠️ **Subsystems**
 
+&nbsp;
+
+### 🖥️ **Custom PCBs we make**
 | Subsystem | Hardware Repository | Firmware Repository |
 | :--- | :--- | :--- |
-| 🔥**Engine Control Unit (ECU v2.0)**🔥 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-ecu-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-ecu-firmware) |
-| 🌍**Ground Support Electronics (GSE v2.1)**🌍 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-gse-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-gse-firmware) |
-| 🛰️**Telemetry Radio System (TRS)**🛰️ | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-trs-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-trs-firmware) |
-| 🔌**Universal Adapter Board (UAB)**🔌 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-universal-adapter-board) | N/A |
+| 🔥 **Engine Control Unit (ECU v2.0)** 🔥 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-ecu-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-ecu-firmware) |
+| 🌍 **Ground Support Electronics (GSE v2.1)** 🌍 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-gse2.0-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-gse-firmware) |
+| 🛰️ **Telemetry Radio System (TRS)** 🛰️ | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-trs-hardware) | [Firmware](https://github.com/UCI-Rocket-Project/rocket2-trs-firmware) |
+| 🔌 **Universal Adapter Board (UAB)** 🔌 | [Hardware](https://github.com/UCI-Rocket-Project/rocket2-universal-adapter-board) | N/A |
 
+&nbsp;
+
+#### **COTS Flight computers for parachute deployment**
+| Flight Computer | Role |
+| :--- | :--- |
+| [**Silicdyne Fluctus**](https://silicdyne.net/shop/fluctus-bundle/) | Primary Flight Computer |
+| [**Altus Metrum EasyMini**](https://altusmetrum.org/EasyMini/) | Secondary/Backup Flight Computer |
+
+&nbsp;
 
 ### 📊 Ground Control & GUI
-* **Primary GUI (VIVIIan):** [UCI-Rocket-Project/VIVIIan](https://github.com/UCI-Rocket-Project/VIVIIan)
-* **Legacy System:** [rocket2-webservice-gui (Deprecated)](https://github.com/UCI-Rocket-Project/rocket2-webservice-gui)
+* **Primary GUI (VIVIIan):** [**UCI-Rocket-Project/VIVIIan**](https://github.com/UCI-Rocket-Project/VIVIIan)
+* **Legacy System:** [**rocket2-webservice-gui (Deprecated)**](https://github.com/UCI-Rocket-Project/rocket2-webservice-gui)
 
 ---
 

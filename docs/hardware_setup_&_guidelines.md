@@ -74,12 +74,20 @@ Additionally, 2 extension that are basically essential for our KiCAD project:
 ## **KiCAD schematic styling guide**
 Some notes on how to work on your project. 
 
-1. **Use hierarchical sheets when possible.**
+1. **Use hierarchical sheets to create block diagrams on the main sheet.**
+    * It's industry standard to use hierarchy in the schematic capture of you engineering project. For KiCAD projects, use **buses** and hierarchical sheets to create a block diagram of how your PCB connects to each subcircuit on your board.
+    * This is an example Micromouse project that follows this standard. Use [this project](https://github.com/RobertAWoo714/Roberts_Micromouse_2026) as reference:
+    <div style="text-align: center;">
+    <img src="../media/hardware_media/KiCAD_Block_Diagram.png" alt="KiCAD Schematic Example" width="1200">
+    <br>
+    <em>Figure 4: KiCAD Schematic Example</em>
+    </div>
+
 2. **No yellow backgrounds for components.**
     * While this is entirely subjective, our team standard dictates that all schematic components must have empty backgrounds for visual consistency.
 
     <div style="text-align: center;">
-    <img src="../media/hardware_media/KiCAD_schematic_example.png" alt="KiCAD Schematic Example" width="600">
+    <img src="../media/hardware_media/KiCAD_Schematic_Example.png" alt="KiCAD Schematic Example" width="600">
     <br>
     <em>Figure 4: KiCAD Schematic Example</em>
     </div>
