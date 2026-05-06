@@ -1,9 +1,15 @@
 site_name: UCI Rocket Project Overview
 theme:
     name: mkdocs
+    color_mode: dark
+    highlightjs: true
 
 markdown_extensions:
   - attr_list
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+
 
 
 nav:

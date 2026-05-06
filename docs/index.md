@@ -63,4 +63,4 @@ Detailed specifications for networking and hardware standards:
 ## 📝 Standards & Onboarding
 * [**Hardware ECAD Setup & Styling Guide**](hardware_setup_&_guidelines.md)
 * [**Software Convention & Styling**](software_guidelines.md)
-* [**Firmware VS Code Extension Guide**](stm32_vscode_guide.md.md)
+* [**Firmware VS Code Extension Guide**](stm32_vscode_guide.md)
