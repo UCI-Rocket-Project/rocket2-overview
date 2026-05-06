@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>STM32 / VSCode Extension Guide - UCI Rocket Project Overview</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" disabled>
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">UCI Rocket Project Overview</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Avionics Overview</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Technical Documentation</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../data_packets/" class="dropdown-item">Data Packets & Networking</a>
+</li>
+                                    
+<li>
+    <a href="../standardized_connectors/" class="dropdown-item">Standardized Connectors</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Standards & Onboarding</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../hardware_setup_%26_guidelines/" class="dropdown-item">Hardware Setup & Guidelines</a>
+</li>
+                                    
+<li>
+    <a href="../software_guidelines/" class="dropdown-item">Software Convention & Styling</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">STM32 / VSCode Extension Guide</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../software_guidelines/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#overview" class="nav-link">Overview</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1-project-initialization" class="nav-link">1. Project Initialization</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-project-manager-configuration" class="nav-link">2. Project Manager Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-ioc-configuration" class="nav-link">3. IOC Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-code-generation" class="nav-link">4. Code Generation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5-vscode-setup-extensions" class="nav-link">5. VSCode Setup &amp; Extensions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#6-upgrading-to-c-custom-drivers" class="nav-link">6. Upgrading to C++ &amp; Custom Drivers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="overview">Overview</h1>
+<p>This guide outlines the standard procedure for initializing an STM32 project using <strong>STM32CubeMX</strong> with <strong>VSCode</strong></p>
+<hr />
+<h2 id="1-project-initialization"><strong>1. Project Initialization</strong></h2>
+<p>Depending on your starting point, choose one of the two methods below:</p>
+<h3 id="option-a-new-project">Option A: New Project</h3>
+<ol>
+<li>Navigate to <code>File</code> &gt; <code>New Project</code>.</li>
+<li>Use the <strong>MCU/Board Selector</strong> to choose your specific hardware.</li>
+</ol>
+<h3 id="option-b-import-existing-configuration-ioc">Option B: Import Existing Configuration (<code>.ioc</code>)</h3>
+<ol>
+<li>Navigate to <code>File</code> &gt; <code>Import Project</code>.</li>
+<li>Browse to and select your <code>.ioc</code> file path.</li>
+<li>Click <strong>OK</strong> to load the existing configuration (default settings are recommended).</li>
+</ol>
+<hr />
+<h2 id="2-project-manager-configuration"><strong>2. Project Manager Configuration</strong></h2>
+<p>Switch to the <strong>Project Manager</strong> tab and apply the following settings:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Setting</th>
+<th style="text-align: left;">Selection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Project Name</strong></td>
+<td style="text-align: left;"><em>Insert your project name</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Application Structure</strong></td>
+<td style="text-align: left;"><code>Advanced</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Toolchain / IDE</strong></td>
+<td style="text-align: left;"><code>CMake</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Project Manager" src="/media/STM32_VSCode_media/STM32CubeMX_Project_Manager.png" style="width:1200px; display:block; margin: 0 auto;" /></p>
+<hr />
+<h2 id="3-ioc-configuration"><strong>3. IOC Configuration</strong></h2>
+<p>IOC file configuration is entirely dependent on your use case. But here's an example:</p>
+<p><img alt="STM32 Pinout Example" src="/media/STM32_VSCode_media/STM32CubeMX_Pinout.png" style="width:1200px; display:block; margin: 0 auto;" /></p>
+<h3 id="common-mistakes-on-ioc-configuration">Common Mistakes on IOC Configuration</h3>
+<ul>
+<li><strong>Clock Configuration:</strong> Make sure to run the automatic clock configuration with the desired <strong>EXTERNAL</strong> crystal oscillator frequency.<ul>
+<li>If you don't do this, the STM32 will just run off of its internal crystal.</li>
+<li>This is important if you are trying to use USB 2.0 High Speed.</li>
+<li>Example above doesn't use a crystal oscillator, but AV has been using Active Crystal Oscillators with the <strong>Bypass Clock Source</strong> setting</li>
+</ul>
+</li>
+<li><strong>Peripherals Timing:</strong> Keep in mind the prescalars and baud rates for SPI/I2C and UART respectively.<ul>
+<li>90% of the time, an error when trying to talk to a downstream device (e.g., reading nothing or garbage data) is because your timing is wrong from these settings.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="4-code-generation"><strong>4. Code Generation</strong></h2>
+<p>Before finalizing, ensure your settings match the configuration shown below:</p>
+<ol>
+<li>Click <strong>GENERATE CODE</strong> in the top-right corner.</li>
+<li>STM32CubeMX will generate the <code>CMakeLists.txt</code> and necessary Hardware Abstraction Layer (HAL) drivers.</li>
+</ol>
+<hr />
+<h2 id="5-vscode-setup-extensions"><strong>5. VSCode Setup &amp; Extensions</strong></h2>
+<p>After generating code in CubeMX, transition to VSCode:</p>
+<h3 id="required-extensions">Required Extensions</h3>
+<ul>
+<li><strong>STM32 VS Code Extension</strong> (Official from STMicroelectronics)</li>
+<li><strong>CMake</strong></li>
+</ul>
+<h3 id="workspace-initialization">Workspace Initialization</h3>
+<ol>
+<li>Open the generated project folder in VSCode.</li>
+<li>In the bottom right notification, select <strong>"Open CMake project as STM32 Project"</strong>.</li>
+<li>Open the <strong>STM32 Cube Extension</strong> tab on the left sidebar.</li>
+<li>Select your specific MCU, toolchain (GCC), and press <strong>Configure</strong>.
+<img alt="VSCode Setup Project" src="/media/STM32_VSCode_media/VSCode_setup_project.png" style="width:1200px; display:block; margin: 0 auto;" /></li>
+</ol>
+<p>To verify the initial C project, we can build the project:</p>
+<ol>
+<li>Open the <strong>CMake</strong> extension tab.</li>
+<li>Locate and press the build button in the CMake extension.<ul>
+<li><code>Project Status</code> &gt; <code>Build</code> &gt; <code>Build</code> </li>
+</ul>
+</li>
+<li>Ensure the terminal outputs with no errors: <code>Build finished with exit code 0</code></li>
+</ol>
+<hr />
+<h2 id="6-upgrading-to-c-custom-drivers"><strong>6. Upgrading to C++ &amp; Custom Drivers</strong></h2>
+<p>To support C++ development and include Avionic's driver libraries (e.g., <code>RocketDrivers</code>), Avionics creates a separate, C++, main file that
+is separate from the STM32CubeMX's generated <code>main.c</code> file. This allows us to work in a new file that isn't cluttered by STM32's hardware
+definitions.</p>
+<p>&nbsp;</p>
+<h3 id="file-structure-setup">File Structure Setup</h3>
+<ul>
+<li>Create <code>Core/Src/main.cpp</code> with the function <code>cpp_main()</code>.
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;main.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cpp_main.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">cpp_main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Your C++ code here</span>
+<span class="w">    </span><span class="c1">// ...</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>Create <code>Core/Inc/cpp_main.h</code> and declare <code>cpp_main()</code>.
+<div class="highlight"><pre><span></span><code><span class="cp">#pragma one </span><span class="c1">// Prevents multiple inclusions of this header</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Disables C++ name mangling so C code can link to this</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// Bridge from C startup code into your C++ application</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">cpp_main</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// Closes extern &quot;C&quot; block</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="c1">// CPP_MAIN_H</span>
+</code></pre></div></li>
+<li>Clone AV's firmware library <code>RocketDrivers</code> into the root directory for your project.<ul>
+<li><code>git submodule add https://github.com/UCI-Rocket-Project/rocket-stm32hal-drivers RocketDrivers</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="bridge-c-to-c">Bridge C to C++</h3>
+<p>In <strong><code>main.c</code></strong>, add the  C++ entry point:</p>
+<h3 id="c-file">C file</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">/* USER CODE BEGIN Includes */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cpp_main.h&quot;</span>
+<span class="cm">/* USER CODE END Includes */</span>
+
+<span class="c1">// ... inside main() function ...</span>
+
+<span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="n">cpp_main</span><span class="p">();</span>
+<span class="cm">/* USER CODE END 2 */</span>
+</code></pre></div>
+<h3 id="cmake-file">Cmake file</h3>
+<p>The automatically generated CMake needs to be updated to support the added folder/files added:
+<div class="highlight"><pre><span></span><code><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.22</span><span class="p">)</span>
+
+<span class="c"># Setup compiler settings</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span><span class="w"> </span><span class="s">11</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+
+<span class="c"># Define the build type</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">CMAKE_BUILD_TYPE</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="s2">&quot;Debug&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># --- DIFFERENCE: Project name was changed from &#39;Micromouse_Firmware&#39; to &#39;ECU_Main&#39; ---</span>
+<span class="c"># Set the project name</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_PROJECT_NAME</span><span class="w"> </span><span class="s">ECU_Main</span><span class="p">)</span>
+
+<span class="c"># Enable compile command to ease indexing with e.g. clangd</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXPORT_COMPILE_COMMANDS</span><span class="w"> </span><span class="s">TRUE</span><span class="p">)</span>
+
+<span class="c"># Core project settings</span>
+<span class="nb">project</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s2">&quot;Build type: &quot;</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># --- DIFFERENCE: Added CXX to enable C++ compiler support ---</span>
+<span class="c">#  Enable CMake support for ASM, C, and C++ (CXX) languages</span>
+<span class="nb">enable_language</span><span class="p">(</span><span class="s">C</span><span class="w"> </span><span class="s">ASM</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># Create an executable object type</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># Add STM32CubeMX generated sources</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">cmake/stm32cubemx</span><span class="p">)</span>
+
+<span class="c"># Link directories setup</span>
+<span class="nb">target_link_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="c"># Add user defined library search paths</span>
+<span class="p">)</span>
+
+<span class="c"># --- DIFFERENCE: Completely new block added to dynamically locate files outside the main project folder ---</span>
+<span class="c"># A. Recursively find all source files in RocketDrivers (one directory up)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span><span class="w"> </span><span class="s">ALL_DRIVER_SOURCES</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;../RocketDrivers/*.c&quot;</span>
+<span class="w">    </span><span class="s2">&quot;../RocketDrivers/*.cc&quot;</span>
+<span class="w">    </span><span class="s2">&quot;../RocketDrivers/*.cpp&quot;</span>
+<span class="p">)</span>
+
+<span class="c"># B. Recursively find all directories that contain .h files (one directory up)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span><span class="w"> </span><span class="s">ALL_DRIVER_HEADERS</span><span class="w"> </span><span class="s2">&quot;../RocketDrivers/*.h&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">ALL_DRIVER_INC_DIRS</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">foreach</span><span class="p">(</span><span class="s">_headerFile</span><span class="w"> </span><span class="o">${</span><span class="nv">ALL_DRIVER_HEADERS</span><span class="o">}</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">get_filename_component</span><span class="p">(</span><span class="s">_dir</span><span class="w"> </span><span class="o">${</span><span class="nv">_headerFile</span><span class="o">}</span><span class="w"> </span><span class="s">DIRECTORY</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span><span class="w"> </span><span class="s">ALL_DRIVER_INC_DIRS</span><span class="w"> </span><span class="o">${</span><span class="nv">_dir</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">REMOVE_DUPLICATES</span><span class="w"> </span><span class="s">ALL_DRIVER_INC_DIRS</span><span class="p">)</span>
+<span class="c"># --- END DIFFERENCE ---</span>
+
+<span class="c"># Add sources to executable</span>
+<span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="c"># Add user sources here</span>
+<span class="w">    </span><span class="c"># --- DIFFERENCE: Added the dynamically found RocketDrivers sources and a C++ main file ---</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">ALL_DRIVER_SOURCES</span><span class="o">}</span>
+<span class="w">    </span><span class="s">Core/Src/main.cpp</span>
+<span class="p">)</span>
+
+<span class="c"># Add include paths</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="c"># Add user defined include paths</span>
+<span class="w">    </span><span class="c"># --- DIFFERENCE: Added the dynamically found RocketDrivers include directories ---</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">ALL_DRIVER_INC_DIRS</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="c"># --- DIFFERENCE: The empty &#39;target_compile_definitions&#39; block present in the original file was deleted in this version ---</span>
+
+<span class="c"># Remove wrong libob.a library dependency when using cpp files</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">REMOVE_ITEM</span><span class="w"> </span><span class="s">CMAKE_C_IMPLICIT_LINK_LIBRARIES</span><span class="w"> </span><span class="s">ob</span><span class="p">)</span>
+
+<span class="c"># Add linked libraries</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span>
+<span class="w">    </span><span class="s">stm32cubemx</span>
+
+<span class="w">    </span><span class="c"># Add user defined libraries</span>
+<span class="p">)</span>
+</code></pre></div></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

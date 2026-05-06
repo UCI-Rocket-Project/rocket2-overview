@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Data Packets & Networking - UCI Rocket Project Overview</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" disabled>
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">UCI Rocket Project Overview</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Avionics Overview</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Technical Documentation</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Data Packets & Networking</a>
+</li>
+                                    
+<li>
+    <a href="../standardized_connectors/" class="dropdown-item">Standardized Connectors</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Standards & Onboarding</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../hardware_setup_%26_guidelines/" class="dropdown-item">Hardware Setup & Guidelines</a>
+</li>
+                                    
+<li>
+    <a href="../software_guidelines/" class="dropdown-item">Software Convention & Styling</a>
+</li>
+                                    
+<li>
+    <a href="../stm32_vscode_guide/" class="dropdown-item">STM32 / VSCode Extension Guide</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../standardized_connectors/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#avionics-data-packets-networking" class="nav-link">Avionics data packets &amp; networking</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#depreciated-data-packets" class="nav-link">Depreciated Data packets</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#gse" class="nav-link">GSE</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#standardized-memory-format" class="nav-link">Standardized Memory Format</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="avionics-data-packets-networking">Avionics data packets &amp; networking</h1>
+<ul>
+<li>
+<p>All data packets for communicationa between boards or to the webservice are defined in here. \</p>
+</li>
+<li>
+<p>All ground communication will be over TCP/IP Ethernet and use the standardized packet format sent via raw bytes. All packets are packed little-endian.\</p>
+</li>
+<li>
+<p>Checksums are CRC-32 (polynomial <code>0x04C11DB7</code>). See files for CRC implementation in C++, this CRC is consistent with Python <code>binascii.crc32()</code>. This additional layer of checksum is added to ensure data integrity over embedded serial busses.\</p>
+</li>
+<li>
+<p>Subnet <code>10.0.0.1/16</code>. DHCP Range <code>10.0.255.0/24</code>. All other IPs reserved.</p>
+</li>
+</ul>
+<h1 id="depreciated-data-packets">Depreciated Data packets</h1>
+<p>Everything below is from previous test setups. We're just keeping this here as an example and for future use.</p>
+<h2 id="gse">GSE</h2>
+<p>IP: <code>10.0.2.0</code>.\
+Open ports <code>10001-10002</code> for commands and data. See below for packet format.</p>
+<h3 id="gse-command-packet">GSE Command Packet</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">gseCommand</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniter0Fire</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniter1Fire</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">alarm</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateGn2Fill</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateGn2Vent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateGn2Disconnect</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateMvasFill</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateMvasVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateMvasOpen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateMvasClose</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateLoxVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateLngVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Description |
+| --- | --- | --- |
+| igniter0Fire | <code>bool</code> | Fire igniter 0 |
+| igniter1Fire | <code>bool</code> | Fire igniter 1 |
+| alarm | <code>bool</code> | Sound alarm |
+| solenoidStateGn2Fill | <code>bool</code> | Nitrogen vehicle fill, normally closed |
+| solenoidStateGn2Vent | <code>bool</code> |  Nitrogen GSE panel vent, normally closed |
+| solenoidStateGn2Disconnect | <code>bool</code> | Actuate nitrogen quick disconnect |
+| solenoidStateMvasFill | <code>bool</code> | MVAS line fill, normally closed |
+| solenoidStateMvasVent | <code>bool</code> | MVAS line vent, normally closed |
+| solenoidStateMvasOpen | <code>bool</code> | Open MVAS, normally closed |
+| solenoidStateMvasClose | <code>bool</code> | Close MVAS, normally closed |
+| solenoidStateLoxVent | <code>bool</code> | Liquid oxygen GSE panel vent, normally open |
+| solenoidStateLngVent | <code>bool</code> | Liquid methane GSE panel vent, normally open |</p>
+<blockquote>
+<p>All fields shall be filled with valid command. For solenoids, a value of <code>1</code> or <code>true</code> <strong>always</strong> corresponds to an energized value. A value of <code>0</code> or <code>false</code> <strong>always</strong> corresponds to a non-energized valve, regardless of solenoid type.</p>
+</blockquote>
+<h3 id="gse-data-packet">GSE Data Packet</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">GseData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniterArmed</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniter0Continuity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniter1Continuity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniterInternalState0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">igniterInternalState1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">alarmInternalState</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateGn2Fill</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateGn2Vent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateGn2Disconnect</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateMvasFill</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateMvasVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateMvasOpen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateMvasClose</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateLoxVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateLngVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">supplyVoltage0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">supplyVoltage1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentGn2Fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentGn2Vent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentGn2Disconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentMvasFill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentMvasVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentMvasOpen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentMvasClose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentLoxVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentLngVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">temperatureLox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">temperatureLng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureGn2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureChamber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | <code>unsigned long</code> | $ms$ | Milliseconds since Unix Epoch |
+| igniterArmed | <code>bool</code> | | Igniter arming key state, <code>1</code> for armed |
+| igniter0Continuity | <code>bool</code> | | Igniter 0 continuity, <code>1</code> for continuity detected |
+| igniter1Continuity | <code>bool</code> | | Igniter 1 continuity, <code>1</code> for continuity detected |
+| igniterInternalState0 | <code>bool</code> | | Igniter 0 fire state feedback |
+| igniterInternalState1 | <code>bool</code> | | Igniter 1 fire state feedback |
+| alarmInternalState1 | <code>bool</code> | | Alarm state feedback |
+| solenoidInternalStateGn2Fill | <code>bool</code> | | Nitrogen vehicle fill solenoid state feedback |
+| solenoidInternalStateGn2Vent | <code>bool</code> | | Nitrogen GSE panel vent solenoid state feedback |
+| solenoidInternalStateGn2Disconnect | <code>bool</code> | | Nitrogen quick disconnect solenoid state feedback |
+| solenoidInternalStateMvasFill | <code>bool</code> | | MVAS line fill solenoid state feedback |
+| solenoidInternalStateMvasVent | <code>bool</code> | | MVAS line vent solenoid state feedback |
+| solenoidInternalStateMvasOpen | <code>bool</code> | | MVAS open solenoid state feedback |
+| solenoidInternalStateMvasClose | <code>bool</code> | | MVAS close solenoid state feedback |
+| solenoidInternalStateLoxVent | <code>bool</code> | | Liquid oxygen GSE panel vent solenoid state feedback |
+| solenoidInternalStateLngVent | <code>bool</code> | | Liquid methane GSE panel vent solenoid state feedback |
+| supplyVoltage0 | <code>float</code> | $V$ | Power supply 0 voltage |
+| supplyVoltage1 | <code>float</code> | $V$ | Power supply 1 voltage |
+| solenoidCurrentGn2Fill | <code>float</code> | $A$ | Nitrogen vehicle fill solenoid current feedback |
+| solenoidCurrentGn2Vent | <code>float</code> | $A$ | Nitrogen GSE panel vent solenoid current feedback |
+| solenoidCurrentGn2Disconnect | <code>float</code> | $A$ | Nitrogen quick disconnect solenoid current feedback |
+| solenoidCurrentMvasFill | <code>float</code> | $A$ | MVAS line fill solenoid current feedback |
+| solenoidCurrentMvasVent | <code>float</code> | $A$ | MVAS line vent solenoid current feedback |
+| solenoidCurrentMvasOpen | <code>float</code> | $A$ | MVAS open solenoid current feedback |
+| solenoidCurrentMvasClose | <code>float</code> | $A$ | MVAS close solenoid current feedback |
+| solenoidCurrentLoxVent | <code>float</code> | $A$ | Liquid oxygen GSE panel vent solenoid current feedback |
+| solenoidCurrentLngVent | <code>float</code> | $A$ | Liquid methane GSE panel vent solenoid current feedback |
+| temperatureLox | <code>float</code> | $\degree C$ | Liquid oxygen temperature |
+| temperatureLng | <code>float</code> | $\degree C$ | Liquid methane temperature |
+| pressureGn2 | <code>float</code> | $V$ | Nitrogen bottle pressure, max range 5000 psi |
+| pressureChamber | <code>float</code> | $V$ | Combustion champer pressure, max range 1000 psi |</p>
+<blockquote>
+<p><code>timestamp</code>, <code>igniterArmed</code>, <code>igniterContinuity</code>, and <code>solenoidInternalState*</code> fields are required. All other fields are optional and shall remain its default value to indicate no data.</p>
+<p>Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.</p>
+</blockquote>
+<h3 id="ecu">ECU</h3>
+<p>IP: <code>10.0.2.1</code>.\
+Open ports <code>10001-10002</code> for commands and data. See below for packet format.</p>
+<h3 id="ecu-command-packet">ECU Command Packet</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ecuCommand</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateCopvVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStatePv1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStatePv2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Description |
+| --- | --- | --- |
+| solenoidStateCopvVent | <code>bool</code> | COPV vent, normally closed |
+| solenoidStatePv1 | <code>bool</code> | DLPR Dome fill, normally closed |
+| solenoidStatePv2 | <code>bool</code> | DLPR Dome vent, normally open |
+| solenoidStateVent | <code>bool</code> | LOX &amp; LNG vent, normally closed |</p>
+<blockquote>
+<p>All fields shall be filled with valid command. For solenoids, a value of <code>1</code> or <code>true</code> <strong>always</strong> corresponds to an energized value. A value of <code>0</code> or <code>false</code> <strong>always</strong> corresponds to a non-energized valve, regardless of solenoid type.</p>
+</blockquote>
+<h3 id="ecu-data-packet">ECU Data Packet</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ecuData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">packetRssi</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">packetLoss</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateCopvVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStatePv1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStatePv2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidInternalStateVent</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">supplyVoltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">batteryVoltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentCopvVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentPv1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentPv2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">solenoidCurrentVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">temperatureCopv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureCopv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureLox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureLng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureInjectorLox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressureInjectorLng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">angularVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">angularVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">angularVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">accelerationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">accelerationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">accelerationZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">magneticFieldX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">magneticFieldY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">magneticFieldZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">altitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefPositionX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefPositionY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefPositionZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefPositionAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ecefVelocityAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nanf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | <code>unsigned long</code> | $ms$ | Milliseconds since Unix Epoch |
+| packetRssi | <code>float</code> | $dBm$ | Radio packet receive signal strength indicator |
+| packetLoss | <code>float</code> | | Radio packet loss rate ratio |
+| solenoidInternalStateCopvVent | <code>bool</code> | | COPV vent solenoid state feedback |
+| solenoidInternalStatePv1 | <code>bool</code> | | DLPR Dome fill solenoid state feedback |
+| solenoidInternalStatePv2 | <code>bool</code> | | DLPR Dome vent solenoid state feedback |
+| solenoidInternalStateVent | <code>bool</code> | | LOX &amp; LNG vent solenoid state feedback |
+| supplyVoltage | <code>float</code> | $V$ | Power supply voltage |
+| batteryVoltage | <code>float</code> | $V$ | Battery supply voltage |
+| solenoidCurrentCopvVent | <code>float</code> | $A$ | COPV vent solenoid current feedback |
+| solenoidCurrentPv1 | <code>float</code> | $A$ | DLPR Dome fill solenoid current feedback |
+| solenoidCurrentPv2 | <code>float</code> | $A$ | DLPR Dome vent solenoid current feedback |
+| solenoidCurrentVent | <code>float</code> | $A$ | LOX &amp; LNG vent solenoid current feedback |
+| temperatureCopv | <code>float</code> | $\degree C$ | COPV temperature |
+| pressureCopv | <code>float</code> | $V$ | COPV pressure, max range 5000 psi |
+| pressureLox | <code>float</code> | $V$ | Liquid oxygen tank pressure, max range 1000 psi |
+| pressureLng | <code>float</code> | $V$ | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | <code>float</code> | $V$ | Injector liquid oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | <code>float</code> | $V$ | Injector methane pressure, max range 1000 psi |
+| angularVelocityX | <code>float</code> | $rad/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
+| angularVelocityY | <code>float</code> | $rad/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
+| angularVelocityZ | <code>float</code> | $rad/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
+| accelerationX | <code>float</code> | $m/s^2$ |  Acceleration along x-axis, launch vehicle frame |
+| accelerationY | <code>float</code> | $m/s^2$ |  Acceleration along y-axis, launch vehicle frame |
+| accelerationZ | <code>float</code> | $m/s^2$ |  Acceleration along z-axis, launch vehicle frame |
+| magneticFieldX | <code>float</code> | $T$ |  Magnetic field along x-axis, launch vehicle frame |
+| magneticFieldY | <code>float</code> | $T$ |  Magnetic field along y-axis, launch vehicle frame |
+| magneticFieldZ | <code>float</code> | $T$ |  Magnetic field along z-axis, launch vehicle frame |
+| temperature | <code>float</code> | $\degree C$ | Environment temperature |
+| altitude | <code>float</code> | $m$ | Mean sea level altitude |
+| ecefPositionX | <code>float</code> | $m$ | GNSS Earth-Centered Earth-Fixed x position |
+| ecefPositionY | <code>float</code> | $m$ | GNSS Earth-Centered Earth-Fixed y position |
+| ecefPositionZ | <code>float</code> | $m$ | GNSS Earth-Centered Earth-Fixed z position |
+| ecefPositionAccuracy | <code>float</code> | $m$ | GNSS estimated position accuracy |
+| ecefVelocityX | <code>float</code> | $m/s$ | GNSS Earth-Centered Earth-Fixed x velocity |
+| ecefVelocityY | <code>float</code> | $m/s$ | GNSS Earth-Centered Earth-Fixed y velocity |
+| ecefVelocityZ | <code>float</code> | $m/s$ | GNSS Earth-Centered Earth-Fixed z velocity |
+| ecefVelocityAccuracy | <code>float</code> | $m/s$ | GNSS estimated velocity accuracy |</p>
+<blockquote>
+<p><code>timestamp</code> field is required. All other fields are optional and shall remain its default value to indicate no data.</p>
+<p>Pressure data is reported in Volts, calibrated for device frontend and ADC, conversion to pressure shall be handled by ground systems.</p>
+</blockquote>
+<h2 id="standardized-memory-format">Standardized Memory Format</h2>
+<p>All data stored into onboard memory will use the standardized packet. All packets are 64 bytes aligned and packed little-endian. Checksums are IBM CRC-16 (polynomial <code>0x8005</code>). See files for CRC implementation in C++.</p>
+<h3 id="afs-telemetry-data">AFS Telemetry Data</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">afsTelemetryData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">state</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">altitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ecefPositionAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ecefVelocityAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0000</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | <code>unsigned long</code> | $ms$ | Milliseconds since Unix Epoch |
+| state | <code>unsigned char</code> | | System state, see <code>AfsState</code> struct below |
+| angularVelocityX | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
+| angularVelocityY | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
+| angularVelocityZ | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
+| accelerationX | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along x-axis, launch vehicle frame |
+| accelerationY | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along y-axis, launch vehicle frame |
+| accelerationZ | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along z-axis, launch vehicle frame |
+| magneticFieldX | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along x-axis, launch vehicle frame |
+| magneticFieldY | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along y-axis, launch vehicle frame |
+| magneticFieldZ | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along z-axis, launch vehicle frame |
+| temperature | <code>signed short</code> | $10^{-2}\ \degree C$ |  Magnetic field along z-axis, launch vehicle frame |
+| altitude | <code>signed long</code> | $cm$ | Mean sea level altitude |
+| ecefPositionX | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed x position |
+| ecefPositionY | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed y position |
+| ecefPositionZ | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed z position |
+| ecefPositionAccuracy | <code>unsigned long</code> | $cm$ | GNSS estimated position accuracy |
+| ecefVelocityX | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed x velocity |
+| ecefVelocityY | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed y velocity |
+| ecefVelocityZ | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed z velocity |
+| ecefVelocityAccuracy | <code>unsigned long</code> | $cm/s$ | GNSS estimated velocity accuracy |
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">AfsState</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">armPinState</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">       </span><span class="c1">// 0: unarmed, 1: armed</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">drogueContinuity</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0: no continuity, 1: continuity</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mainContinuity</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">    </span><span class="c1">// 0: no continuity, 1: continuity</span>
+<span class="w">    </span><span class="nl">uint16_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">               </span><span class="c1">// reserved</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * 0x0: standby</span>
+<span class="cm">     * 0x1: armed</span>
+<span class="cm">     * 0x2: boost</span>
+<span class="cm">     * 0x3: coast</span>
+<span class="cm">     * 0x4: apogee</span>
+<span class="cm">     * 0x5: drogue fired</span>
+<span class="cm">     * 0x6: drogue opened</span>
+<span class="cm">     * 0x7 drogue failure</span>
+<span class="cm">     * 0x8: main fired</span>
+<span class="cm">     * 0x9: main opened</span>
+<span class="cm">     * 0xA: main failure</span>
+<span class="cm">     * 0xB: land</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></p>
+<blockquote>
+<p><code>timestamp</code> and <code>state</code> fields are required. All other fields are optional and shall remain its default value to indicate no data.</p>
+</blockquote>
+<h3 id="ecu-telemetry-data">ECU Telemetry Data</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ecuTelemetryData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x10</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+<span class="w">    </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angularVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">accelerationZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">magneticFieldZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">altitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefPositionZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ecefPositionAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ecefVelocityZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ecefVelocityAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0000</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | <code>unsigned long</code> | $ms$ | Milliseconds since Unix Epoch |
+| angularVelocityX | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along x-axis, launch vehicle frame |
+| angularVelocityY | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along y-axis, launch vehicle frame |
+| angularVelocityZ | <code>signed short</code> | $6.1 \cdot 10^{-2}\ \degree/s$ | Angular velocity counterclockwise along z-axis, launch vehicle frame |
+| accelerationX | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along x-axis, launch vehicle frame |
+| accelerationY | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along y-axis, launch vehicle frame |
+| accelerationZ | <code>signed short</code> | $7.3 \cdot 10^{-4}\ g$ |  Acceleration along z-axis, launch vehicle frame |
+| magneticFieldX | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along x-axis, launch vehicle frame |
+| magneticFieldY | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along y-axis, launch vehicle frame |
+| magneticFieldZ | <code>signed short</code> | $6.3 \cdot 10^{-8}\ T$ |  Magnetic field along z-axis, launch vehicle frame |
+| temperature | <code>signed short</code> | $10^{-2}\ \degree C$ |  Magnetic field along z-axis, launch vehicle frame |
+| altitude | <code>signed long</code> | $cm$ | Mean sea level altitude |
+| ecefPositionX | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed x position |
+| ecefPositionY | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed y position |
+| ecefPositionZ | <code>signed long</code> | $cm$ | GNSS Earth-Centered Earth-Fixed z position |
+| ecefPositionAccuracy | <code>unsigned long</code> | $cm$ | GNSS estimated position accuracy |
+| ecefVelocityX | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed x velocity |
+| ecefVelocityY | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed y velocity |
+| ecefVelocityZ | <code>signed long</code> | $cm/s$ | GNSS Earth-Centered Earth-Fixed z velocity |
+| ecefVelocityAccuracy | <code>unsigned long</code> | $cm/s$ | GNSS estimated velocity accuracy |</p>
+<blockquote>
+<p><code>timestamp</code> field is required. All other fields are optional and shall remain its default value to indicate no data.</p>
+</blockquote>
+<h3 id="ecu-fluid-system-data">ECU Fluid System Data</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ecuFluidSystemData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x11</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">supplyVoltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">batteryVoltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateCopvVent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStatePv1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStatePv2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">solenoidStateVent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">solenoidCurrentCopvVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">solenoidCurrentPv1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">solenoidCurrentPv2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">solenoidCurrentVent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">temperatureCopv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pressureCopv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pressureLox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pressureLng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pressureInjectorLox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pressureInjectorLng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
+<span class="w">  </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="w">  </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="w">  </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="w">  </span><span class="nl">uint64_t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0000</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+| Key | Data Type | Units | Description |
+| --- | --- | --- | --- |
+| timestamp | <code>unsigned long</code> | $ms$ | Milliseconds since Unix Epoch |
+| supplyVoltage | <code>unsigned short</code> | $mV$ | Power supply voltage |
+| batteryVoltage | <code>unsigned short</code> | $mV$ | Battery supply voltage |
+| solenoidStateCopvVent | <code>bool</code> | | COPV vent solenoid state |
+| solenoidStatePv1 | <code>bool</code> | | DLPR Dome fill solenoid state |
+| solenoidStatePv2 | <code>bool</code> | | DLPR Dome vent solenoid state |
+| solenoidStateVent | <code>bool</code> | | LOX &amp; LNG vent solenoid state |
+| solenoidCurrentCopvVent | <code>unsigned short</code> | $mA$ | COPV vent solenoid current feedback |
+| solenoidCurrentPv1 | <code>unsigned short</code> | $mA$ | DLPR Dome fill solenoid current feedback |
+| solenoidCurrentPv2 | <code>unsigned short</code> | $mA$ | DLPR Dome vent solenoid current feedback |
+| solenoidCurrentVent | <code>unsigned short</code> | $A$ | LOX &amp; LNG vent solenoid current feedback |
+| temperatureCopv | <code>signed short</code> | $10^{-2}\ \degree C$ | COPV temperature |
+| pressureCopv | <code>unsigned short</code> | $10^{-1}\ psi$ | COPV pressure, max range 5000 psi |
+| pressureLox | <code>unsigned short</code> | $10^{-1}\ psi$ | Liquid oxygen tank pressure, max range 1000 psi |
+| pressureLng | <code>unsigned short</code> | $10^{-1}\ psi$ | Liquid methane tank pressure, max range 1000 psi |
+| pressureInjectorLox | <code>unsigned short</code> | $10^{-1}\ psi$ | Injector oxygen pressure, max range 1000 psi |
+| pressureInjectorLng | <code>unsigned short</code> | $10^{-1}\ psi$ | Injector methane pressure, max range 1000 psi |</p>
+<blockquote>
+<p><code>timestamp</code> field is required. All other fields are optional and shall remain its default value to indicate no data.</p>
+</blockquote></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
